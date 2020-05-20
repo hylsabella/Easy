@@ -1,0 +1,139 @@
+﻿using Autofac;
+using Easy.Common.Cache;
+using Easy.Common.Cache.Redis;
+using Easy.Common.Ioc;
+using Easy.Common.Ioc.Autofac;
+using Microsoft.Practices.ServiceLocation;
+using NLog;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.Composition.Hosting;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading;
+
+namespace Easy.Common.Startup
+{
+    /// <summary>
+    /// 启动扩展
+    /// </summary>
+    public static class AppStartupExt
+    {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
+        /// <summary>
+        /// 初始化MEF容器
+        /// </summary>
+        /// <param name="dirName">dll目录名称</param>
+        public static ApplicationStartup InitMEF(this ApplicationStartup startup, string dirName, Assembly assembly = null)
+        {
+            var catalog = new AggregateCatalog();
+
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dirName);
+
+            if (!Directory.Exists(path))
+            {
+                throw new ArgumentException("初始化MEF目录未找到");
+            }
+
+            catalog.Catalogs.Add(new DirectoryCatalog(path));
+
+            if (assembly != null)
+            {
+                catalog.Catalogs.Add(new AssemblyCatalog(assembly));
+            }
+
+            var container = new CompositionContainer(catalog, true);
+
+            EasyMefContainer.InitMefContainer(container);
+
+            return startup;
+        }
+
+        /// <summary>
+        /// 初始化全局Ioc容器
+        /// </summary>
+        public static ApplicationStartup InitIoc(this ApplicationStartup startup, IServiceLocator serviceLocator)
+        {
+            EasyIocContainer.InitIocContainer(serviceLocator);
+
+            return startup;
+        }
+
+        /// <summary>
+        /// 初始化缓存服务
+        /// </summary>
+        public static ApplicationStartup InitRedisCache(this ApplicationStartup startup, TimeSpan? cacheExpires = null)
+        {
+            if (EasyAutofac.Container != null)
+            {
+                throw new Exception("注册Redis必须在初始化IOC容器【InitIoc】之前完成！");
+            }
+
+            RedisCache redisCache = null;
+
+            if (cacheExpires == null)
+            {
+                redisCache = new RedisCache();
+            }
+            else
+            {
+                redisCache = new RedisCache(cacheExpires.Value);
+            }
+
+            var builder = EasyAutofac.ContainerBuilder;
+
+            builder.Register(c => redisCache).As<IEasyCache>().SingleInstance();
+
+            return startup;
+        }
+
+        public static ApplicationStartup UseNLog(this ApplicationStartup startup, string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException("未找到nlog配置文件");
+            }
+
+            LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(filePath);
+
+            return startup;
+        }
+
+        /// <summary>
+        /// 初始化机器线程池配置
+        /// </summary>
+        /// <param name="minWorkerThreads">最小工作线程数（每个逻辑CPU核心最优应设置为50，例如当前是4核CPU，那么该参数应为：4 * 50 = 200）</param>
+        /// <param name="minIoThreads">最小IO线程数（每个逻辑CPU核心最优应设置为50，例如当前是4核CPU，那么该参数应为：4 * 50 = 200）</param>
+        /// <param name="maxWorkerThreads">最大工作线程数（每个逻辑CPU核心最优应设置为100，例如当前是4核CPU，那么该参数应为：4 * 100 = 400）</param>
+        /// <param name="maxIoThreads">最大IO线程数（每个逻辑CPU核心最优应设置为100，例如当前是4核CPU，那么该参数应为：4 * 100 = 400）</param>
+        public static ApplicationStartup InitMachineConfig(this ApplicationStartup startup, int minWorkerThreads, int minIoThreads, int maxWorkerThreads, int maxIoThreads)
+        {
+            ThreadPool.SetMinThreads(minWorkerThreads, minIoThreads);
+            ThreadPool.SetMaxThreads(maxWorkerThreads, maxIoThreads);
+
+            int maxWorkThread = 0;
+            int maxIOThread = 0;
+            int minWorkThread = 0;
+            int minIOThread = 0;
+            int workThread = 0;
+            int completeThread = 0;
+
+            ThreadPool.GetMaxThreads(out maxWorkThread, out maxIOThread);
+            ThreadPool.GetMinThreads(out minWorkThread, out minIOThread);
+            ThreadPool.GetAvailableThreads(out workThread, out completeThread);
+
+            string result = Environment.NewLine;
+            result += "最大工作线程：" + maxWorkThread + "，最大IO线程：" + maxIOThread + Environment.NewLine;
+            result += "最小工作线程：" + minWorkThread + "，最小IO线程：" + minIOThread + Environment.NewLine;
+            result += "可用工作线程：" + workThread + "，可用IO线程：" + completeThread + Environment.NewLine;
+            result += Environment.NewLine;
+
+            logger.Info(result);
+
+            return startup;
+        }
+    }
+}
