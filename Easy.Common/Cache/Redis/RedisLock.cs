@@ -1,6 +1,5 @@
 ﻿using StackExchange.Redis;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,13 +19,16 @@ namespace Easy.Common.Cache.Redis
         /// <summary>
         /// 默认重试延迟
         /// </summary>
-        private readonly TimeSpan retryDelay = new TimeSpan(0, 0, 0, 0, 200);
+        private readonly TimeSpan retryDelay = TimeSpan.FromMilliseconds(200);
 
         /// <summary>
         /// redis服务器集合
         /// </summary>
         private ConnectionMultiplexer[] redisServerList;
 
+        /// <summary>
+        /// 获得锁的临界值：投票半数则通过
+        /// </summary>
         protected int 获得锁的临界值 { get { return (redisServerList.Length / 2) + 1; } }
 
         public RedisLock(params ConnectionMultiplexer[] redisServer)
@@ -63,7 +65,7 @@ namespace Easy.Common.Cache.Redis
                     var drift = Convert.ToInt32((expires.TotalMilliseconds * 0.01) + 2);
 
                     //如果validTimeSpan大于0，表示在超时之前已经获得锁，该锁是有效的
-                    var validTimeSpan = expires - (DateTime.Now - startTime) - new TimeSpan(0, 0, 0, 0, drift);
+                    var validTimeSpan = expires - (DateTime.Now - startTime) - TimeSpan.FromMilliseconds(drift);
 
                     if (当前已获得的锁 >= 获得锁的临界值 && validTimeSpan.TotalMilliseconds > 0)
                     {
@@ -190,6 +192,20 @@ namespace Easy.Common.Cache.Redis
         protected string CreateUniqueLockId()
         {
             return Guid.NewGuid().ToString();
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(this.GetType().FullName);
+
+            sb.AppendLine("Registered Connections:");
+            foreach (var redisServer in redisServerList)
+            {
+                sb.AppendLine(redisServer.GetEndPoints().First().ToString());
+            }
+
+            return sb.ToString();
         }
     }
 }
