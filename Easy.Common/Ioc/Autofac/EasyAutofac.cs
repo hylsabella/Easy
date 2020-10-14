@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extras.CommonServiceLocator;
+using CommonServiceLocator;
 using Easy.Common.Startup;
-using Microsoft.Practices.ServiceLocation;
 using System;
 using System.ComponentModel.Composition;
 

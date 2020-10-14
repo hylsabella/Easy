@@ -1,17 +1,14 @@
 ﻿using Autofac;
+using CommonServiceLocator;
 using Easy.Common.Cache;
 using Easy.Common.Cache.Redis;
 using Easy.Common.Ioc;
 using Easy.Common.Ioc.Autofac;
-using Microsoft.Practices.ServiceLocation;
 using NLog;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 
 namespace Easy.Common.Startup
