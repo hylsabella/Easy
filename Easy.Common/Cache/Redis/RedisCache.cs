@@ -108,15 +108,8 @@ namespace Easy.Common.Cache.Redis
         {
             CheckHelper.NotEmpty(key, "key");
 
-            if (!timeType.IsInDefined())
-            {
-                throw new ArgumentException("时间类型不合法！");
-            }
-
-            if (maxCount < 0)
-            {
-                throw new ArgumentException("最大次数必须大于等于0！");
-            }
+            if (!timeType.IsInDefined()) throw new ArgumentException("时间类型不合法！");
+            if (maxCount < 0) throw new ArgumentException("最大次数必须大于等于0！");
 
             //缓存Key
             string cacheKey = "IsOverStep:";
