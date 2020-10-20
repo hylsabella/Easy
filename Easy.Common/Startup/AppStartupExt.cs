@@ -6,6 +6,7 @@ using Easy.Common.Ioc;
 using Easy.Common.Ioc.Autofac;
 using NLog;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Reflection;
@@ -38,6 +39,30 @@ namespace Easy.Common.Startup
             catalog.Catalogs.Add(new DirectoryCatalog(path));
 
             if (assembly != null)
+            {
+                catalog.Catalogs.Add(new AssemblyCatalog(assembly));
+            }
+
+            var container = new CompositionContainer(catalog, true);
+
+            EasyMefContainer.InitMefContainer(container);
+
+            return startup;
+        }
+
+        /// <summary>
+        /// 初始化MEF容器
+        /// </summary>
+        public static ApplicationStartup InitMEF(this ApplicationStartup startup, List<Assembly> assemblyList)
+        {
+            if (assemblyList == null || assemblyList.Count <= 0)
+            {
+                return startup;
+            }
+
+            var catalog = new AggregateCatalog();
+
+            foreach (var assembly in assemblyList)
             {
                 catalog.Catalogs.Add(new AssemblyCatalog(assembly));
             }

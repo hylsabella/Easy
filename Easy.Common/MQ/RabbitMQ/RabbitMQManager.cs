@@ -29,11 +29,11 @@ namespace Easy.Common.MQ.RabbitMQ
                                     _connection.Close();
                                 }
 
-                                string hostName = ConfigurationManager.AppSettings["appSettings:RabbitMQ.HostName"];
-                                string userName = ConfigurationManager.AppSettings["appSettings:RabbitMQ.UserName"];
-                                string password = ConfigurationManager.AppSettings["appSettings:RabbitMQ.Pwd"];
+                                string hostName = ConfigurationManager.AppSettings["RabbitMQ.HostName"];
+                                string userName = ConfigurationManager.AppSettings["RabbitMQ.UserName"];
+                                string password = ConfigurationManager.AppSettings["RabbitMQ.Pwd"];
 
-                                bool.TryParse(ConfigurationManager.AppSettings["appSettings:RabbitMQ.PwdEncrypt"] ?? "", out bool isEncryption);
+                                bool.TryParse(ConfigurationManager.AppSettings["RabbitMQ.PwdEncrypt"] ?? "", out bool isEncryption);
 
                                 if (isEncryption)
                                 {
