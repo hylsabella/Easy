@@ -16,7 +16,7 @@ namespace Easy.WebMvc.Attributes
     public class ExceptionAttribute : FilterAttribute, IExceptionFilter
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        private static string _errorRedirect = System.Configuration.ConfigurationManager.AppSettings["ErrorRedirect"] ?? "/static/error.html";
+        private static string _errorRedirect = System.Configuration.ConfigurationManager.AppSettings["ErrorRedirect"] ?? "/statics/error.html";
 
         public void OnException(ExceptionContext actionExecutedContext)
         {
