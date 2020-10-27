@@ -178,8 +178,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\DefendLimitAttackRemoveAttribute.cs" />
-    <Compile Include="Attributes\DefendLimitAttackAttribute.cs" />
+    <Compile Include="Attributes\DefendAttackRemoveAttribute.cs" />
+    <Compile Include="Attributes\DefendAttackAttribute.cs" />
     <Compile Include="BrowserPlugins\IObjectSafety.cs" />
     <Compile Include="BrowserPlugins\ObjectSafety.cs" />
     <Compile Include="Cache\Redis\LockInfo.cs" />
@@ -230,7 +230,7 @@
     <Compile Include="Repository\SearchBase.cs" />
     <Compile Include="Repository\SqlServerRepository.cs" />
     <Compile Include="Security\DefendAttackContainer.cs" />
-    <Compile Include="Security\DefendLimitAttackModel.cs" />
+    <Compile Include="Security\DefendAttackModel.cs" />
     <Compile Include="Security\EasySecretKeySetting.cs" />
     <Compile Include="Security\FormsAuthService.cs" />
     <Compile Include="Security\IFormsAuthService.cs" />

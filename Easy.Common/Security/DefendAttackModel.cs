@@ -9,7 +9,7 @@ namespace Easy.Common.Security
     /// <summary>
     /// 预防流量攻击模型
     /// </summary>
-    public class DefendLimitAttackModel
+    public class DefendAttackModel
     {
         public string Controller { get; set; }
 

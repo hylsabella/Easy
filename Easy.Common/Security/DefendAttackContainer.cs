@@ -10,9 +10,9 @@ namespace Easy.Common.Security
     {
         public static string AssemblyName { get; private set; }
 
-        public static IList<DefendLimitAttackModel> DefendLimitAttackList { get; private set; } = new List<DefendLimitAttackModel>();
+        public static IList<DefendAttackModel> DefendLimitAttackList { get; private set; } = new List<DefendAttackModel>();
 
-        public static void InitDefendAttackList(IList<DefendLimitAttackModel> defendLimitAttackList, string assemblyName)
+        public static void InitDefendAttackList(IList<DefendAttackModel> defendLimitAttackList, string assemblyName)
         {
             AssemblyName = assemblyName;
             DefendLimitAttackList = defendLimitAttackList;

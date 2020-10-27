@@ -7,10 +7,10 @@ using System.Net.Http;
 namespace Easy.Common.Attributes
 {
     /// <summary>
-    /// 不参与防御流量攻击
+    /// 防御流量攻击（注：WebApi工程拦截带 RouteAttribute 特性的方法）
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
-    public class DefendLimitAttackRemoveAttribute : Attribute
+    public class DefendAttackAttribute : Attribute
     {
 
     }
