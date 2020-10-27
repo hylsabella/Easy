@@ -15,21 +15,21 @@ namespace Easy.Common.Repository
     public class SqlServerRepository<T> : IRepository<T> where T : EntityBase
     {
         private readonly string _tableName = typeof(T).Name;
-        private readonly string _connectionString = RepositoryCenter.ConnectionString;
 
         /// <summary>
         /// 获取主键记录
         /// </summary>
         /// <param name="id">主键值</param>
         /// <param name="tableIndex">分表Id</param>
-        public T Get(int id, string tableIndex = "")
+        public T Get(int id, string tableIndex = "", string connectionStringName = "default")
         {
             if (id <= 0) return default;
-            if (string.IsNullOrWhiteSpace(_connectionString)) throw new Exception("尚未配置数据库连接字符串！");
+
+            string connectionString = RepositoryCenter.GetConnectionString(connectionStringName);
 
             tableIndex = (tableIndex ?? string.Empty).Trim();
 
-            using (IDbConnection connection = new SqlConnection(_connectionString))
+            using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -42,10 +42,11 @@ namespace Easy.Common.Repository
         /// </summary>
         /// <param name="model">model</param>
         /// <param name="tableIndex">分表Id</param>
-        public int Insert(T model, string tableIndex = "")
+        public int Insert(T model, string tableIndex = "", string connectionStringName = "default")
         {
             CheckHelper.NotNull(model, "model");
-            if (string.IsNullOrWhiteSpace(_connectionString)) throw new Exception("尚未配置数据库连接字符串！");
+
+            string connectionString = RepositoryCenter.GetConnectionString(connectionStringName);
 
             tableIndex = (tableIndex ?? string.Empty).Trim();
 
@@ -62,7 +63,7 @@ namespace Easy.Common.Repository
 
             string sql = $"INSERT INTO [{_tableName + tableIndex}]({nameSql}) VALUES({valueSql});SELECT @@IDENTITY";
 
-            using (IDbConnection connection = new SqlConnection(_connectionString))
+            using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -79,10 +80,11 @@ namespace Easy.Common.Repository
         /// </summary>
         /// <param name="modelList">modelList</param>
         /// <param name="tableIndex">分表Id</param>
-        public int InsertBulk(IList<T> modelList, string tableIndex = "")
+        public int InsertBulk(IList<T> modelList, string tableIndex = "", string connectionStringName = "default")
         {
             CheckHelper.ArrayNotHasNull(modelList, "modelList");
-            if (string.IsNullOrWhiteSpace(_connectionString)) throw new Exception("尚未配置数据库连接字符串！");
+
+            string connectionString = RepositoryCenter.GetConnectionString(connectionStringName);
 
             tableIndex = (tableIndex ?? string.Empty).Trim();
 
@@ -99,7 +101,7 @@ namespace Easy.Common.Repository
 
             string sql = $"INSERT INTO [{_tableName + tableIndex}]({nameSql}) VALUES({valueSql})";
 
-            using (IDbConnection connection = new SqlConnection(_connectionString))
+            using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -116,11 +118,12 @@ namespace Easy.Common.Repository
         /// </summary>
         /// <param name="model">model</param>
         /// <param name="tableIndex">分表Id</param>
-        public void Update(T model, string tableIndex = "")
+        public void Update(T model, string tableIndex = "", string connectionStringName = "default")
         {
             CheckHelper.NotNull(model, "model");
             if (model.ID <= 0) throw new Exception("主键Id必须大于0！");
-            if (string.IsNullOrWhiteSpace(_connectionString)) throw new Exception("尚未配置数据库连接字符串！");
+
+            string connectionString = RepositoryCenter.GetConnectionString(connectionStringName);
 
             tableIndex = (tableIndex ?? string.Empty).Trim();
 
@@ -147,7 +150,7 @@ namespace Easy.Common.Repository
 
             string sql = $"UPDATE [{_tableName + tableIndex}] SET {valueSql} WHERE [Id] = @Id AND [Version] = @Version";
 
-            using (IDbConnection connection = new SqlConnection(_connectionString))
+            using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -162,14 +165,15 @@ namespace Easy.Common.Repository
         /// </summary>
         /// <param name="id">主键值</param>
         /// <param name="tableIndex">分表Id</param>
-        public void DeleteByTag(int id, string tableIndex = "")
+        public void DeleteByTag(int id, string tableIndex = "", string connectionStringName = "default")
         {
             if (id <= 0) throw new ArgumentException("Id不能为空");
-            if (string.IsNullOrWhiteSpace(_connectionString)) throw new Exception("尚未配置数据库连接字符串！");
+
+            string connectionString = RepositoryCenter.GetConnectionString(connectionStringName);
 
             tableIndex = (tableIndex ?? string.Empty).Trim();
 
-            using (IDbConnection connection = new SqlConnection(_connectionString))
+            using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -184,14 +188,15 @@ namespace Easy.Common.Repository
         /// </summary>
         /// <param name="id">主键值</param>
         /// <param name="tableIndex">分表Id</param>
-        public void DeleteFromDB(int id, string tableIndex = "")
+        public void DeleteFromDB(int id, string tableIndex = "", string connectionStringName = "default")
         {
             if (id <= 0) throw new ArgumentException("Id不能为空");
-            if (string.IsNullOrWhiteSpace(_connectionString)) throw new Exception("尚未配置数据库连接字符串！");
+
+            string connectionString = RepositoryCenter.GetConnectionString(connectionStringName);
 
             tableIndex = (tableIndex ?? string.Empty).Trim();
 
-            using (IDbConnection connection = new SqlConnection(_connectionString))
+            using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -206,10 +211,11 @@ namespace Easy.Common.Repository
         /// </summary>
         /// <param name="search">条件</param>
         /// <returns>分页数据</returns>
-        public PageResult<T> SearchPageResult(SearchBase search)
+        public PageResult<T> SearchPageResult(SearchBase search, string connectionStringName = "default")
         {
             CheckHelper.NotNull(search, "search");
-            if (string.IsNullOrWhiteSpace(_connectionString)) throw new Exception("尚未配置数据库连接字符串！");
+
+            string connectionString = RepositoryCenter.GetConnectionString(connectionStringName);
 
             string tableIndex = (search.TableIndex ?? string.Empty).Trim();
 
@@ -233,7 +239,7 @@ namespace Easy.Common.Repository
                 timeSql += " AND [CreateDate] < @EndTime ";
             }
 
-            using (IDbConnection connection = new SqlConnection(_connectionString))
+            using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
