@@ -14,7 +14,7 @@ namespace Easy.Common.Security
         {
             get
             {
-                return "fuck1314";
+                return "02AAF66AD8FD";
             }
         }
     }

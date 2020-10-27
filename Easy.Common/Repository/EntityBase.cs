@@ -4,7 +4,7 @@ namespace Easy.Common.Repository
 {
     public class EntityBase
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
 
         public string Creater { get; set; }
 

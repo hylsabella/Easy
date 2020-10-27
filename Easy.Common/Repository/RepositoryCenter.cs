@@ -12,39 +12,42 @@ namespace Easy.Common.Repository
 {
     public static class RepositoryCenter
     {
-        public static string ConnectionString
+        public static string GetConnectionString(string connectionStringName)
         {
-            get
+            if (string.IsNullOrWhiteSpace(connectionStringName)) throw new Exception($"数据库连接名称不能为空，参数connectionStringName");
+
+            string connectionString = ConfigurationManager.ConnectionStrings[connectionStringName]?.ConnectionString ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(connectionString)) throw new Exception($"尚未配置数据库{connectionStringName}连接字符串！");
+
+            string pwdEncrypt = ConfigurationManager.AppSettings["ConnectionString.PwdEncrypt"] ?? string.Empty;
+
+            bool.TryParse(pwdEncrypt, out bool isEncryption);
+
+            if (isEncryption)
             {
-                string connectionString = ConfigurationManager.AppSettings["ConnectionString"] ?? string.Empty;
-                string pwdEncrypt = ConfigurationManager.AppSettings["ConnectionString.PwdEncrypt"] ?? string.Empty;
-
-                bool.TryParse(pwdEncrypt, out bool isEncryption);
-
-                if (isEncryption)
-                {
-                    //解密
-                    connectionString = EncryptionHelper.DES解密(connectionString, EasySecretKeySetting.PlatformDESKey);
-                }
-
-                return connectionString;
+                //解密
+                connectionString = EncryptionHelper.DES解密(connectionString, EasySecretKeySetting.PlatformDESKey);
             }
+
+            return connectionString;
         }
 
-        public static IDbConnection CreateConnection(DataBaseType repositoryType)
+        public static IDbConnection CreateConnection(DataBaseType repositoryType, string connectionStringName)
         {
-            if (string.IsNullOrWhiteSpace(ConnectionString)) throw new Exception("尚未配置数据库连接字符串！");
+            if (string.IsNullOrWhiteSpace(connectionStringName)) throw new Exception($"数据库连接名称不能为空，参数connectionStringName");
             if (!repositoryType.IsInDefined()) throw new Exception("请指定数据库类型！");
+
+            string connectionString = GetConnectionString(connectionStringName);
 
             IDbConnection connection = null;
 
             if (repositoryType == DataBaseType.SqlServer)
             {
-                connection = new SqlConnection(ConnectionString);
+                connection = new SqlConnection(connectionString);
             }
             else if (repositoryType == DataBaseType.PostgreSQL)
             {
-                connection = new NpgsqlConnection(ConnectionString);
+                connection = new NpgsqlConnection(connectionString);
             }
 
             connection.Open();

@@ -34,13 +34,13 @@ namespace Easy.Common.Cache.Redis
                                     _redis.Close(allowCommandsToComplete: true);
                                 }
 
-                                string redisHostName = ConfigurationManager.AppSettings["Redis:HostName"];
+                                string redisHostName = ConfigurationManager.AppSettings["Redis.HostName"];
                                 var configOptions = ConfigurationOptions.Parse(redisHostName);
 
-                                string password = ConfigurationManager.AppSettings["Redis:Pwd"];
+                                string password = ConfigurationManager.AppSettings["Redis.Pwd"];
 
                                 bool isEncryption = false;
-                                bool.TryParse(ConfigurationManager.AppSettings["Redis:PwdEncrypt"] ?? "", out isEncryption);
+                                bool.TryParse(ConfigurationManager.AppSettings["Redis.PwdEncrypt"] ?? "", out isEncryption);
 
                                 if (isEncryption)
                                 {
@@ -62,9 +62,9 @@ namespace Easy.Common.Cache.Redis
                                     throw new ArgumentException("连接Redis服务器失败！");
                                 }
                             }
-                            catch (Exception ex)
+                            catch (Exception)
                             {
-                                throw new Exception("请检查【redis】数据库配置", ex);
+                                throw;
                             }
                         }
                     }

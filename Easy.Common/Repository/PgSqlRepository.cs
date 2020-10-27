@@ -119,7 +119,7 @@ namespace Easy.Common.Repository
         public void Update(T model, string tableIndex = "")
         {
             CheckHelper.NotNull(model, "model");
-            if (model.Id <= 0) throw new Exception("主键Id必须大于0！");
+            if (model.ID <= 0) throw new Exception("主键Id必须大于0！");
             if (string.IsNullOrWhiteSpace(_connectionString)) throw new Exception("尚未配置数据库连接字符串！");
 
             tableIndex = (tableIndex ?? string.Empty).Trim();
