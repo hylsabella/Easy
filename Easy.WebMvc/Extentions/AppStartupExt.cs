@@ -23,7 +23,7 @@ namespace Easy.WebMvc
         /// <summary>
         /// 注册MVC
         /// </summary>
-        public static ApplicationStartup RegMvc(this ApplicationStartup startup, Assembly assembly)
+        public static AppStartup RegMvc(this AppStartup startup, Assembly assembly)
         {
             if (EasyAutofac.Container != null)
             {
@@ -55,12 +55,11 @@ namespace Easy.WebMvc
             return startup;
         }
 
-        public static ApplicationStartup StartMvc(this ApplicationStartup startup)
+        public static AppStartup StartMvc(this AppStartup startup)
         {
-            if (EasyAutofac.Container == null)
-            {
-                throw new Exception("请先加载Ioc容器");
-            }
+            startup.Start();
+
+            if (EasyAutofac.Container == null) throw new Exception("请先加载Ioc容器");
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(EasyAutofac.Container));
 
@@ -70,7 +69,7 @@ namespace Easy.WebMvc
         /// <summary>
         /// 注册验证模型提供者
         /// </summary>
-        public static ApplicationStartup RegFluentValid(this ApplicationStartup startup)
+        public static AppStartup RegFluentValid(this AppStartup startup)
         {
             FluentValidationModelValidatorProvider.Configure();
 
@@ -80,7 +79,7 @@ namespace Easy.WebMvc
         /// <summary>
         /// 获取需要防御流量攻击的【Action】
         /// </summary>
-        public static ApplicationStartup InitMvcLimitAttack(this ApplicationStartup startup, Assembly assembly)
+        public static AppStartup InitMvcLimitAttack(this AppStartup startup, Assembly assembly)
         {
             var limitAttackModelList = DefendLimitAttackService.GetLimitAttackModel(assembly);
 

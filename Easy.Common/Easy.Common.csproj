@@ -258,7 +258,7 @@
     <Compile Include="Security\UserIdentity.cs" />
     <Compile Include="Security\UserModel.cs" />
     <Compile Include="Security\UserPrincipal.cs" />
-    <Compile Include="Startup\ApplicationStartup.cs" />
+    <Compile Include="Startup\AppStartup.cs" />
     <Compile Include="Startup\EasyMefContainer.cs" />
     <Compile Include="UI\SysApiResult.cs" />
     <Compile Include="UI\PageResult.cs" />

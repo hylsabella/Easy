@@ -25,7 +25,7 @@ namespace Easy.WebApi
         /// <summary>
         /// 注册WebApi
         /// </summary>
-        public static ApplicationStartup RegWebApi(this ApplicationStartup startup, Assembly assembly)
+        public static AppStartup RegWebApi(this AppStartup startup, Assembly assembly)
         {
             if (EasyAutofac.Container != null)
             {
@@ -61,8 +61,10 @@ namespace Easy.WebApi
             return startup;
         }
 
-        public static ApplicationStartup StartWebApi(this ApplicationStartup startup)
+        public static AppStartup StartWebApi(this AppStartup startup)
         {
+			startup.Start();
+
             if (EasyAutofac.Container == null)
             {
                 throw new Exception("请先加载Ioc容器");
@@ -76,7 +78,7 @@ namespace Easy.WebApi
         /// <summary>
         /// 注册验证模型提供者
         /// </summary>
-        public static ApplicationStartup RegFluentValid(this ApplicationStartup startup)
+        public static AppStartup RegFluentValid(this AppStartup startup)
         {
             FluentValidationModelValidatorProvider.Configure(GlobalConfiguration.Configuration);
 
@@ -86,7 +88,7 @@ namespace Easy.WebApi
         /// <summary>
         /// 获取需要防御流量攻击的【RouteName】
         /// </summary>
-        public static ApplicationStartup InitMvcLimitAttack(this ApplicationStartup startup, Assembly assembly)
+        public static AppStartup InitMvcLimitAttack(this AppStartup startup, Assembly assembly)
         {
             var limitAttackModelList = DefendLimitAttackService.GetLimitAttackModel(assembly);
 

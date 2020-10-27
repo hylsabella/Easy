@@ -25,7 +25,7 @@ namespace Easy.Common.Startup
         /// 初始化MEF容器
         /// </summary>
         /// <param name="dirName">dll目录名称</param>
-        public static ApplicationStartup InitMEF(this ApplicationStartup startup, string dirName, Assembly assembly = null)
+        public static AppStartup InitMEF(this AppStartup startup, string dirName, Assembly assembly = null)
         {
             var catalog = new AggregateCatalog();
 
@@ -53,7 +53,7 @@ namespace Easy.Common.Startup
         /// <summary>
         /// 初始化MEF容器
         /// </summary>
-        public static ApplicationStartup InitMEF(this ApplicationStartup startup, List<Assembly> assemblyList)
+        public static AppStartup InitMEF(this AppStartup startup, List<Assembly> assemblyList)
         {
             if (assemblyList == null || assemblyList.Count <= 0)
             {
@@ -77,7 +77,7 @@ namespace Easy.Common.Startup
         /// <summary>
         /// 初始化全局Ioc容器
         /// </summary>
-        public static ApplicationStartup InitIoc(this ApplicationStartup startup, IServiceLocator serviceLocator)
+        public static AppStartup InitIoc(this AppStartup startup, IServiceLocator serviceLocator)
         {
             EasyIocContainer.InitIocContainer(serviceLocator);
 
@@ -87,7 +87,7 @@ namespace Easy.Common.Startup
         /// <summary>
         /// 初始化缓存服务
         /// </summary>
-        public static ApplicationStartup InitRedisCache(this ApplicationStartup startup, TimeSpan? cacheExpires = null)
+        public static AppStartup InitRedisCache(this AppStartup startup, TimeSpan? cacheExpires = null)
         {
             if (EasyAutofac.Container != null)
             {
@@ -112,7 +112,7 @@ namespace Easy.Common.Startup
             return startup;
         }
 
-        public static ApplicationStartup UseNLog(this ApplicationStartup startup, string filePath)
+        public static AppStartup UseNLog(this AppStartup startup, string filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -131,7 +131,7 @@ namespace Easy.Common.Startup
         /// <param name="minIoThreads">最小IO线程数（每个逻辑CPU核心最优应设置为50，例如当前是4核CPU，那么该参数应为：4 * 50 = 200）</param>
         /// <param name="maxWorkerThreads">最大工作线程数（每个逻辑CPU核心最优应设置为100，例如当前是4核CPU，那么该参数应为：4 * 100 = 400）</param>
         /// <param name="maxIoThreads">最大IO线程数（每个逻辑CPU核心最优应设置为100，例如当前是4核CPU，那么该参数应为：4 * 100 = 400）</param>
-        public static ApplicationStartup InitMachineConfig(this ApplicationStartup startup, int minWorkerThreads, int minIoThreads, int maxWorkerThreads, int maxIoThreads)
+        public static AppStartup InitMachineConfig(this AppStartup startup, int minWorkerThreads, int minIoThreads, int maxWorkerThreads, int maxIoThreads)
         {
             ThreadPool.SetMinThreads(minWorkerThreads, minIoThreads);
             ThreadPool.SetMaxThreads(maxWorkerThreads, maxIoThreads);
