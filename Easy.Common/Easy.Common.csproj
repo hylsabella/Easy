@@ -196,6 +196,9 @@
     <Compile Include="Helpers\BitmapHelper.cs" />
     <Compile Include="Helpers\EnvironmentHelper.cs" />
     <Compile Include="Helpers\RandomHelper.cs" />
+    <Compile Include="IoC\Autofac\EasyAutofac.cs" />
+    <Compile Include="IoC\Autofac\IAutofacRegistrar.cs" />
+    <Compile Include="IoC\EasyIocContainer.cs" />
     <Compile Include="MQ\IMqConsumer.cs" />
     <Compile Include="MQ\IMqReceivedBinder.cs" />
     <Compile Include="MQ\MessageInfo.cs" />
