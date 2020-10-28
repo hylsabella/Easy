@@ -1,4 +1,4 @@
-﻿using Easy.Common.Ioc;
+﻿using Easy.Common.IoC;
 using System;
 using System.Collections.Generic;
 using System.Linq;

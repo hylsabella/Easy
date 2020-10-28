@@ -1,4 +1,4 @@
-﻿using Easy.Common.Ioc;
+﻿using Easy.Common.IoC;
 using Microsoft.Extensions.Internal;
 using Newtonsoft.Json;
 using System;

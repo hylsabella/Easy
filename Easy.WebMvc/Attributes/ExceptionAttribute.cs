@@ -34,11 +34,11 @@ namespace Easy.WebMvc.Attributes
 
                 if (actionExecutedContext.Exception.GetType() == typeof(HttpAntiForgeryException))
                 {
-                    result = new SysApiResult<string>() { Status = SysResultStatus.防伪过期, Message = "服务器繁忙，请重新登陆。" };
+                    result = new SysApiResult<string>() { Status = SysApiStatus.防伪过期, Message = "服务器繁忙，请重新登陆。" };
                 }
                 else
                 {
-                    result = new SysApiResult<string>() { Status = SysResultStatus.异常, Message = "服务器繁忙，请稍候再试" };
+                    result = new SysApiResult<string>() { Status = SysApiStatus.异常, Message = "服务器繁忙，请稍候再试" };
                 }
 
                 if (actionExecutedContext.HttpContext.Request.HttpMethod.ToLower() == "get")

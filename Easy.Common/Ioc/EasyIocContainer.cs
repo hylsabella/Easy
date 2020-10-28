@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using CommonServiceLocator;
 
-namespace Easy.Common.Ioc
+namespace Easy.Common.IoC
 {
     /// <summary>
-    /// EasyIoc通用容器
+    /// EasyIoC通用容器
     /// </summary>
     public static class EasyIocContainer
     {

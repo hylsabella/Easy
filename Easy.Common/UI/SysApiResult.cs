@@ -11,8 +11,8 @@ namespace Easy.Common.UI
     [Serializable, DataContract]
     public sealed class SysApiResult<TResult>
     {
-        [DataMember(Name = "Status"), DefaultValue(SysResultStatus.成功)]
-        public SysResultStatus Status { get; set; }
+        [DataMember(Name = "Status"), DefaultValue(SysApiStatus.成功)]
+        public SysApiStatus Status { get; set; }
 
         [DataMember(Name = "Message"), DefaultValue("")]
         public string Message { get; set; }
@@ -21,16 +21,16 @@ namespace Easy.Common.UI
         public TResult Result { get; set; }
 
         public SysApiResult()
-            : this(SysResultStatus.成功, default(TResult), string.Empty)
+            : this(SysApiStatus.成功, default(TResult), string.Empty)
         {
         }
 
-        public SysApiResult(SysResultStatus status, TResult result)
+        public SysApiResult(SysApiStatus status, TResult result)
             : this(status, result, string.Empty)
         {
         }
 
-        public SysApiResult(SysResultStatus status, TResult result, string message)
+        public SysApiResult(SysApiStatus status, TResult result, string message)
         {
             this.Status = status;
             this.Result = result;
@@ -39,7 +39,7 @@ namespace Easy.Common.UI
 
         public void DefaultError(string errorMsg)
         {
-            this.Status = SysResultStatus.失败;
+            this.Status = SysApiStatus.失败;
             this.Message = errorMsg;
         }
     }

@@ -77,7 +77,7 @@ namespace Easy.WebMvc.Attributes
         {
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
-                var result = new SysApiResult<string>() { Status = SysResultStatus.未授权, Message = "您的登陆身份已过期，请重新登陆" };
+                var result = new SysApiResult<string>() { Status = SysApiStatus.未授权, Message = "您的登陆身份已过期，请重新登陆" };
 
                 if (filterContext.HttpContext.Request.HttpMethod.ToLower() == "get")
                 {

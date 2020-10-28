@@ -241,9 +241,9 @@
     <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\ValidateCodeHelper.cs" />
-    <Compile Include="Ioc\Autofac\EasyAutofac.cs" />
-    <Compile Include="Ioc\EasyIocContainer.cs" />
-    <Compile Include="Ioc\Autofac\IAutofacRegistrar.cs" />
+    <Compile Include="IoC\Autofac\EasyAutofac.cs" />
+    <Compile Include="IoC\EasyIocContainer.cs" />
+    <Compile Include="IoC\Autofac\IAutofacRegistrar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cache\IEasyCache.cs" />
     <Compile Include="Cache\Redis\RedisCache.cs" />
@@ -263,7 +263,7 @@
     <Compile Include="UI\SysApiResult.cs" />
     <Compile Include="UI\PageResult.cs" />
     <Compile Include="UI\BizResultStatus.cs" />
-    <Compile Include="UI\SysResultStatus.cs" />
+    <Compile Include="UI\SysApiStatus.cs" />
     <Compile Include="UI\SearchBase.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,8 +2,8 @@
 using CommonServiceLocator;
 using Easy.Common.Cache;
 using Easy.Common.Cache.Redis;
-using Easy.Common.Ioc;
-using Easy.Common.Ioc.Autofac;
+using Easy.Common.IoC;
+using Easy.Common.IoC.Autofac;
 using NLog;
 using System;
 using System.Collections.Generic;

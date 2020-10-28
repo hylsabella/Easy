@@ -5,32 +5,37 @@ using Easy.Common.Startup;
 using System;
 using System.ComponentModel.Composition;
 
-namespace Easy.Common.Ioc.Autofac
+namespace Easy.Common.IoC.Autofac
 {
     /// <summary>
-    /// Easy Autofac Ioc
+    /// Easy Autofac IoC
     /// </summary>
     public class EasyAutofac
     {
         private static object _lock = new object();
         private static IServiceLocator _serviceLocator;
-        private static readonly ContainerBuilder _containerBuilder = new ContainerBuilder();
-        private static IContainer _container;
+        public static IContainer Container { get; private set; }
+        public static ContainerBuilder ContainerBuilder { get; } = new ContainerBuilder();
 
         [Import]
         private IAutofacRegistrar _autofacRegistrar = null;
 
-        public EasyAutofac()
+        public EasyAutofac(bool hasExtraIocReg)
         {
-            if (EasyMefContainer.Container == null)
-            {
-                throw new Exception("请先初始化MEF容器");
-            }
-
             //导入MEF
-            if (_autofacRegistrar == null)
+            if (hasExtraIocReg && _autofacRegistrar == null)
             {
-                EasyMefContainer.Container.SatisfyImportsOnce(this);
+                if (EasyMefContainer.Container == null) throw new Exception("请先初始化MEF容器");
+
+                try
+                {
+                    //MEF导入初始化_autofacRegistrar变量
+                    EasyMefContainer.Container.SatisfyImportsOnce(this);
+                }
+                catch (CompositionException ex)
+                {
+                    throw new Exception("当参数【hasExtraIocReg】为true时，请先实现IAutofacRegistrar接口。", ex);
+                }
             }
         }
 
@@ -45,13 +50,13 @@ namespace Easy.Common.Ioc.Autofac
                         if (_autofacRegistrar != null)
                         {
                             //自动注册
-                            _autofacRegistrar.Register(_containerBuilder);
+                            _autofacRegistrar.Register(ContainerBuilder);
                         }
 
                         //生成容器
-                        _container = _containerBuilder.Build();
+                        Container = ContainerBuilder.Build();
 
-                        var serviceLocator = new AutofacServiceLocator(_container);
+                        var serviceLocator = new AutofacServiceLocator(Container);
 
                         //设置通用IOC适配器
                         ServiceLocator.SetLocatorProvider(() => serviceLocator);
@@ -62,22 +67,6 @@ namespace Easy.Common.Ioc.Autofac
             }
 
             return _serviceLocator;
-        }
-
-        public static IContainer Container
-        {
-            get
-            {
-                return _container;
-            }
-        }
-
-        public static ContainerBuilder ContainerBuilder
-        {
-            get
-            {
-                return _containerBuilder;
-            }
         }
     }
 }

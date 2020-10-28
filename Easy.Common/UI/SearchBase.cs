@@ -24,26 +24,13 @@ namespace Easy.Common.UI
 
         public string TableIndex { get; set; }
 
-        //public int StartIndexMask { get; set; } = -1;
-
         public int StartIndex
         {
             get
             {
-                //if (StartIndexMask >= 0)
-                //{
-                //    return StartIndexMask;
-                //}
-                //else
-                //{
-                //    //对应datatable 的start即可
-                //    return PageIndex;
-                //}
                 return PageIndex;
             }
         }
-
-        //public int EndIndexMask { get; set; } = -1;
 
         public int EndIndex
         {
@@ -54,6 +41,7 @@ namespace Easy.Common.UI
                 {
                     PageCount = int.MaxValue;
                 }
+
                 return PageIndex + PageCount;
             }
         }

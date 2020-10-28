@@ -9,7 +9,7 @@ namespace Easy.Common.UI
     /// <summary>
     /// 系统结果状态
     /// </summary>
-    public enum SysResultStatus
+    public enum SysApiStatus
     {
         成功 = 0,
 
