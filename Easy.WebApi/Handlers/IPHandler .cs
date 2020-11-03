@@ -1,5 +1,5 @@
 ﻿using Easy.Common.Cache;
-using Easy.Common.Ioc;
+using Easy.Common.IoC;
 using Easy.Common.Security;
 using System;
 using System.Collections.Generic;

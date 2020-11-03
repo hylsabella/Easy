@@ -14,9 +14,9 @@ namespace Easy.WebApi.Security
         /// <summary>
         /// 获取需要预防流量攻击的模块
         /// </summary>
-        public static List<DefendLimitAttackModel> GetLimitAttackModel(Assembly assembly)
+        public static List<DefendAttackModel> GetLimitAttackModel(Assembly assembly)
         {
-            var resultList = new List<DefendLimitAttackModel>();
+            var resultList = new List<DefendAttackModel>();
 
             var allTypes = assembly.GetTypes();
 
@@ -30,7 +30,7 @@ namespace Easy.WebApi.Security
                 }
 
                 //在该【Controller】上找【预防攻击特性】
-                var ctrDefendAttr = controllerType.GetCustomAttribute<DefendLimitAttackAttribute>();
+                var ctrDefendAttr = controllerType.GetCustomAttribute<DefendAttackAttribute>();
 
                 //如果在该【Controller】类上找到了【预防攻击特性】，那么只需要在该【Controller】下，找有【Route】特性的【Action】
                 if (ctrDefendAttr != null)
@@ -45,9 +45,9 @@ namespace Easy.WebApi.Security
         /// <summary>
         /// 获取控制器下的Action（除了标记【移除预防特性】和【非Action】的方法）
         /// </summary>
-        private static List<DefendLimitAttackModel> GetRouteAttrAction(Type controllerType)
+        private static List<DefendAttackModel> GetRouteAttrAction(Type controllerType)
         {
-            var resultList = new List<DefendLimitAttackModel>();
+            var resultList = new List<DefendAttackModel>();
 
             var actionMethods = controllerType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
 
@@ -57,7 +57,7 @@ namespace Easy.WebApi.Security
 
                 if (routeAttribute != null)
                 {
-                    resultList.Add(new DefendLimitAttackModel
+                    resultList.Add(new DefendAttackModel
                     {
                         Controller = controllerType.Name,
                         Action = routeAttribute.Template

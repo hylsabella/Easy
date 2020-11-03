@@ -1,5 +1,5 @@
 ﻿using Easy.Common.Cache;
-using Easy.Common.Ioc;
+using Easy.Common.IoC;
 using Easy.Common.Security;
 using Easy.Common.Startup;
 using Easy.Common.UI;
@@ -61,7 +61,7 @@ namespace Easy.WebApi.Attributes
 
             if (!actionContext.Request.TryGetToken(_accessTokenKey, out accessToken))
             {
-                var result = new SysApiResult<string>() { Status = SysResultStatus.未授权, Message = "您的登陆身份已过期，请重新登陆" };
+                var result = new SysApiResult<string>() { Status = SysApiStatus.未授权, Message = "您的登陆身份已过期，请重新登陆" };
 
                 actionContext.Response = actionContext.Request.CreateResponse(result);
 
@@ -73,7 +73,7 @@ namespace Easy.WebApi.Attributes
             //从数据库获取客户信息
             if (userModel == null)
             {
-                var result = new SysApiResult<string>() { Status = SysResultStatus.未授权, Message = "您的登陆身份已过期，请重新登陆" };
+                var result = new SysApiResult<string>() { Status = SysApiStatus.未授权, Message = "您的登陆身份已过期，请重新登陆" };
 
                 actionContext.Response = actionContext.Request.CreateResponse(result);
 
@@ -83,7 +83,7 @@ namespace Easy.WebApi.Attributes
             //时间过期
             if (userModel.TokenExpireTime <= DateTime.Now)
             {
-                var result = new SysApiResult<string>() { Status = SysResultStatus.过期, Message = "token已过期，请重新登陆" };
+                var result = new SysApiResult<string>() { Status = SysApiStatus.过期, Message = "token已过期，请重新登陆" };
 
                 actionContext.Response = actionContext.Request.CreateResponse(result);
 

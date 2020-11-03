@@ -1,5 +1,5 @@
 ﻿using Autofac.Integration.WebApi;
-using Easy.Common.Ioc.Autofac;
+using Easy.Common.IoC.Autofac;
 using Easy.Common.Security;
 using Easy.Common.Startup;
 using Easy.WebApi.Attributes;

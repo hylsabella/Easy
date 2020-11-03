@@ -25,7 +25,7 @@ namespace Easy.WebApi.Attributes
             {
                 actionExecutedContext.Response = actionExecutedContext.Request.CreateResponse(new SysApiResult<string>()
                 {
-                    Status = SysResultStatus.异常,
+                    Status = SysApiStatus.异常,
                     Message = "服务器繁忙，请稍候再试"
                 });
             }
@@ -35,7 +35,7 @@ namespace Easy.WebApi.Attributes
 
                 actionExecutedContext.Response = actionExecutedContext.Request.CreateResponse(new SysApiResult<string>()
                 {
-                    Status = SysResultStatus.异常,
+                    Status = SysApiStatus.异常,
                     Message = "服务器繁忙，请稍候再试"
                 });
             }

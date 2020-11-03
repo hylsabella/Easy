@@ -31,7 +31,7 @@ namespace Easy.WebApi.Attributes
                 {
                     actionContext.Response = actionContext.Request.CreateResponse(new SysApiResult<string>()
                     {
-                        Status = SysResultStatus.未授权,
+                        Status = SysApiStatus.未授权,
                         Message = "请求参数不能为空！"
                     });
 
@@ -61,7 +61,7 @@ namespace Easy.WebApi.Attributes
 
                 actionContext.Response = actionContext.Request.CreateResponse(new SysApiResult<string>()
                 {
-                    Status = SysResultStatus.异常,
+                    Status = SysApiStatus.异常,
                     Message = errorMsg
                 });
 
