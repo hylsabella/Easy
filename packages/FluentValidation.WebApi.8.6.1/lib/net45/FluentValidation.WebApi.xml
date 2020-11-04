@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FluentValidation.WebApi</name>
+    </assembly>
+    <members>
+        <member name="P:FluentValidation.WebApi.CustomizeValidatorAttribute.RuleSet">
+            <summary>
+            Specifies the ruleset which should be used when executing this validator.
+            This can be a comma separated list of rulesets. The string "*" can be used to indicate all rulesets.
+            The string "default" can be used to specify those rules not in an explict ruleset.
+            </summary>
+        </member>
+        <member name="P:FluentValidation.WebApi.CustomizeValidatorAttribute.Properties">
+            <summary>
+            Specifies a whitelist of properties that should be validated, as a comma-separated list.
+            </summary>
+        </member>
+        <member name="P:FluentValidation.WebApi.CustomizeValidatorAttribute.Interceptor">
+            <summary>
+            Specifies an interceptor that can be used to customize the validation process.
+            </summary>
+        </member>
+        <member name="P:FluentValidation.WebApi.CustomizeValidatorAttribute.Skip">
+            <summary>
+            Indicates whether this model should skip being validated. The default is false.
+            </summary>
+        </member>
+        <member name="M:FluentValidation.WebApi.CustomizeValidatorAttribute.ToValidatorSelector">
+            <summary>
+            Builds a validator selector from the options specified in the attribute's properties.
+            </summary>
+        </member>
+        <member name="P:FluentValidation.WebApi.FluentValidationModelValidatorProvider.DisableDiscoveryOfPropertyValidators">
+            <summary>
+            Enabling this maintains compatibility with FluentValidation 6.4, where discovery of validators was limited to top level models.
+            </summary>
+        </member>
+        <member name="M:FluentValidation.WebApi.FluentValidationModelValidatorProvider.Configure(System.Web.Http.HttpConfiguration,System.Action{FluentValidation.WebApi.FluentValidationModelValidatorProvider})">
+            <summary>
+            Initializes the FluentValidationModelValidatorProvider using the default options and adds it in to the ModelValidatorProviders collection.
+            </summary>
+        </member>
+        <member name="T:FluentValidation.WebApi.IValidatorInterceptor">
+            <summary>
+            Specifies an interceptor that can be used to provide hooks that will be called before and after WebApi validation occurs.
+            </summary>
+        </member>
+        <member name="M:FluentValidation.WebApi.IValidatorInterceptor.BeforeMvcValidation(System.Web.Http.Controllers.HttpActionContext,FluentValidation.ValidationContext)">
+            <summary>
+            Invoked before WebApi validation takes place which allows the ValidationContext to be customized prior to validation.
+            It should return a ValidationContext object.
+            </summary>
+            <param name="actionContext">Controller Context</param>
+            <param name="validationContext">Validation Context</param>
+            <returns>Validation Context</returns>
+        </member>
+        <member name="M:FluentValidation.WebApi.IValidatorInterceptor.AfterMvcValidation(System.Web.Http.Controllers.HttpActionContext,FluentValidation.ValidationContext,FluentValidation.Results.ValidationResult)">
+            <summary>
+            Invoked after WebApi validation takes place which allows the result to be customized.
+            It should return a ValidationResult.
+            </summary>
+            <param name="actionContext">Controller Context</param>
+            <param name="validationContext">Validation Context</param>
+            <param name="result">The result of validation.</param>
+            <returns>Validation Context</returns>
+        </member>
+        <member name="M:FluentValidation.WebApi.ValidationResultExtension.AddToModelState(FluentValidation.Results.ValidationResult,System.Web.Http.ModelBinding.ModelStateDictionary,System.String)">
+            <summary>
+            Stores the errors in a ValidationResult object to the specified modelstate dictionary.
+            </summary>
+            <param name="result">The validation result to store</param>
+            <param name="modelState">The ModelStateDictionary to store the errors in.</param>
+            <param name="prefix">An optional prefix. If omitted, the property names will be the keys. If specified, the prefix will be concatenated to the property name with a period. Eg "user.Name"</param>
+        </member>
+    </members>
+</doc>
