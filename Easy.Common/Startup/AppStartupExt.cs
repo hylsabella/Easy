@@ -105,6 +105,16 @@ namespace Easy.Common.Startup
                 redisCache = new RedisCache(cacheExpires.Value);
             }
 
+            try
+            {
+                //测试redis是否连接成功
+                var dataBase = RedisManager.Connection.GetDatabase(0);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "连接Redis服务器失败");
+            }
+
             var builder = EasyAutofac.ContainerBuilder;
 
             builder.Register(c => redisCache).As<IEasyCache>().SingleInstance();

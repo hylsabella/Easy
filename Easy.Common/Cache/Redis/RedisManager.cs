@@ -37,6 +37,12 @@ namespace Easy.Common.Cache.Redis
                                 string redisHostName = ConfigurationManager.AppSettings["Redis.HostName"];
                                 var configOptions = ConfigurationOptions.Parse(redisHostName);
 
+                                string userName = ConfigurationManager.AppSettings["Redis.UserName"];
+                                if (!string.IsNullOrWhiteSpace(userName))
+                                {
+                                    configOptions.ClientName = userName;
+                                }
+
                                 string password = ConfigurationManager.AppSettings["Redis.Pwd"];
 
                                 bool isEncryption = false;
