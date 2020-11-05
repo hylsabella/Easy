@@ -182,7 +182,6 @@
     <Compile Include="Cache\Redis\RedisCache_Hash.cs" />
     <Compile Include="Cache\Redis\RedisCache_Queue.cs" />
     <Compile Include="Cache\Redis\RedisCache_String.cs" />
-    <Compile Include="Domain\DomainModelBase.cs" />
     <Compile Include="Extentions\HttpRequestBaseExt.cs" />
     <Compile Include="Helpers\BitmapHelper.cs" />
     <Compile Include="Helpers\EnvironmentHelper.cs" />
