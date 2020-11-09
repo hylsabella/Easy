@@ -1,6 +1,9 @@
 ﻿namespace Easy.Common.MQ
 {
-    public class MessageInfo<T>
+    /// <summary>
+    /// MQ消息体
+    /// </summary>
+    public class MqMessage<T>
     {
         public string MessageId { get; set; }
 

@@ -6,6 +6,9 @@ using System.Configuration;
 
 namespace Easy.Common.MQ.RabbitMQ
 {
+    /// <summary>
+    /// RabbitMQ连接管理
+    /// </summary>
     public static class RabbitMQManager
     {
         private readonly static object _lockerConn = new object();
@@ -30,6 +33,11 @@ namespace Easy.Common.MQ.RabbitMQ
                                 }
 
                                 string hostName = ConfigurationManager.AppSettings["RabbitMQ.HostName"];
+                                if (!int.TryParse(ConfigurationManager.AppSettings["RabbitMQ.Port"], out int port))
+                                {
+                                    throw new Exception("请检查【RabbitMQ.Port】是否为合法端口号");
+                                }
+
                                 string userName = ConfigurationManager.AppSettings["RabbitMQ.UserName"];
                                 string password = ConfigurationManager.AppSettings["RabbitMQ.Pwd"];
 
@@ -43,6 +51,7 @@ namespace Easy.Common.MQ.RabbitMQ
                                 var factory = new ConnectionFactory
                                 {
                                     HostName = hostName,
+                                    Port = port,
                                     UserName = userName,
                                     Password = password,
                                 };
