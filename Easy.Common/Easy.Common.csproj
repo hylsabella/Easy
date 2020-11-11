@@ -218,6 +218,7 @@
     <Compile Include="Extentions\EnumExt.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Repository\DataBaseType.cs" />
+    <Compile Include="Repository\EntityPrimary.cs" />
     <Compile Include="Repository\EntityBase.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\PageResult.cs" />
