@@ -77,6 +77,8 @@ namespace Easy.Common.Startup
         /// </summary>
         public static AppStartup InitIoC(this AppStartup startup, IServiceLocator serviceLocator)
         {
+            if (serviceLocator == null) throw new Exception("IServiceLocator对象不能为空");
+
             EasyIocContainer.InitIocContainer(serviceLocator);
 
             return startup;
@@ -85,7 +87,7 @@ namespace Easy.Common.Startup
         /// <summary>
         /// 初始化缓存服务
         /// </summary>
-        public static AppStartup InitRedisCache(this AppStartup startup, TimeSpan? cacheExpires = null)
+        public static AppStartup RegRedisCache(this AppStartup startup, TimeSpan? cacheExpires = null)
         {
             if (EasyAutofac.Container != null) throw new Exception("注册Redis必须在初始化IOC容器生成之前完成！");
 
@@ -110,9 +112,7 @@ namespace Easy.Common.Startup
                 logger.Error(ex, "连接Redis服务器失败");
             }
 
-            var builder = EasyAutofac.ContainerBuilder;
-
-            builder.Register(c => redisCache).As<IEasyCache>().SingleInstance();
+            EasyAutofac.ContainerBuilder.Register(c => redisCache).As<IEasyCache>().SingleInstance();
 
             return startup;
         }
@@ -145,23 +145,13 @@ namespace Easy.Common.Startup
         /// </summary>
         /// <param name="minWorkerThreads">最小工作线程数（每个逻辑CPU核心最优应设置为50，例如当前是4核CPU，那么该参数应为：4 * 50 = 200）</param>
         /// <param name="minIoThreads">最小IO线程数（每个逻辑CPU核心最优应设置为50，例如当前是4核CPU，那么该参数应为：4 * 50 = 200）</param>
-        /// <param name="maxWorkerThreads">最大工作线程数（每个逻辑CPU核心最优应设置为100，例如当前是4核CPU，那么该参数应为：4 * 100 = 400）</param>
-        /// <param name="maxIoThreads">最大IO线程数（每个逻辑CPU核心最优应设置为100，例如当前是4核CPU，那么该参数应为：4 * 100 = 400）</param>
-        public static AppStartup InitMachineConfig(this AppStartup startup, int minWorkerThreads, int minIoThreads, int maxWorkerThreads, int maxIoThreads)
+        public static AppStartup InitMachineConfig(this AppStartup startup, int minWorkerThreads = 200, int minIoThreads = 200)
         {
             ThreadPool.SetMinThreads(minWorkerThreads, minIoThreads);
-            ThreadPool.SetMaxThreads(maxWorkerThreads, maxIoThreads);
 
-            int maxWorkThread = 0;
-            int maxIOThread = 0;
-            int minWorkThread = 0;
-            int minIOThread = 0;
-            int workThread = 0;
-            int completeThread = 0;
-
-            ThreadPool.GetMaxThreads(out maxWorkThread, out maxIOThread);
-            ThreadPool.GetMinThreads(out minWorkThread, out minIOThread);
-            ThreadPool.GetAvailableThreads(out workThread, out completeThread);
+            ThreadPool.GetMinThreads(out int minWorkThread, out int minIOThread);
+            ThreadPool.GetMaxThreads(out int maxWorkThread, out int maxIOThread);
+            ThreadPool.GetAvailableThreads(out int workThread, out int completeThread);
 
             string result = Environment.NewLine;
             result += "最大工作线程：" + maxWorkThread + "，最大IO线程：" + maxIOThread + Environment.NewLine;

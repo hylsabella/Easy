@@ -186,6 +186,7 @@
     <Compile Include="Extentions\HttpRequestBaseExt.cs" />
     <Compile Include="Helpers\BitmapHelper.cs" />
     <Compile Include="Helpers\EnvironmentHelper.cs" />
+    <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\RandomHelper.cs" />
     <Compile Include="IoC\Autofac\EasyAutofac.cs" />
     <Compile Include="IoC\Autofac\IAutofacRegistrar.cs" />
