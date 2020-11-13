@@ -3,13 +3,11 @@ using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
 using Easy.Common.Startup;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 
 namespace Easy.Common.IoC.Autofac
 {
-    /// <summary>
-    /// Easy Autofac IoC
-    /// </summary>
     public class EasyAutofac
     {
         private static object _lock = new object();
@@ -17,19 +15,19 @@ namespace Easy.Common.IoC.Autofac
         public static IContainer Container { get; private set; }
         public static ContainerBuilder ContainerBuilder { get; } = new ContainerBuilder();
 
-        [Import]
-        private IAutofacRegistrar _autofacRegistrar = null;
+        [ImportMany]
+        private IEnumerable<IAutofacRegistrar> _autofacRegList = null;
 
         public EasyAutofac(bool hasExtraIocReg)
         {
             //导入MEF
-            if (hasExtraIocReg && _autofacRegistrar == null)
+            if (hasExtraIocReg && _autofacRegList == null)
             {
                 if (EasyMefContainer.Container == null) throw new Exception("请先初始化MEF容器");
 
                 try
                 {
-                    //MEF导入初始化_autofacRegistrar变量
+                    //MEF导入初始化_autofacRegList变量
                     EasyMefContainer.Container.SatisfyImportsOnce(this);
                 }
                 catch (CompositionException ex)
@@ -47,10 +45,12 @@ namespace Easy.Common.IoC.Autofac
                 {
                     if (_serviceLocator == null)
                     {
-                        if (_autofacRegistrar != null)
+                        if (_autofacRegList != null)
                         {
-                            //自动注册
-                            _autofacRegistrar.Register(ContainerBuilder);
+                            foreach (var autofacReg in _autofacRegList)
+                            {
+                                autofacReg.Register(ContainerBuilder);
+                            }
                         }
 
                         //生成容器
