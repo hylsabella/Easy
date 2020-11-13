@@ -17,8 +17,6 @@ namespace Easy.WebApi.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
     public class ModelValidatorAttribute : ActionFilterAttribute
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
             base.OnActionExecuting(actionContext);

@@ -84,7 +84,7 @@ namespace Easy.Common.Cache.Redis
                         return false;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return false;
                 }
@@ -126,14 +126,14 @@ namespace Easy.Common.Cache.Redis
 
         protected bool LockInstance(ConnectionMultiplexer redisServer, string resourceKey, string value, TimeSpan expires)
         {
-            bool isSuccess = false;
+            bool isSuccess;
 
             try
             {
                 //对应redis的SETNX命令
                 isSuccess = redisServer.GetDatabase().StringSet(resourceKey, value, expires, When.NotExists);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 isSuccess = false;
             }

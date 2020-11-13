@@ -27,8 +27,8 @@ namespace Easy.WebApi.Attributes
         private const string _msHttpContextKey = "MS_HttpContext";
         private const string _accessTokenKey = "accesstoken";
 
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-        private static IEasyCache _easyCache = EasyIocContainer.GetInstance<IEasyCache>();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly IEasyCache _easyCache = EasyIocContainer.GetInstance<IEasyCache>();
 
         [Import(RequiredCreationPolicy = CreationPolicy.Shared)]
         private IAuthUserService _authUserService = null;
@@ -57,9 +57,7 @@ namespace Easy.WebApi.Attributes
 
         protected virtual IUser GetUser(HttpActionContext actionContext)
         {
-            var accessToken = string.Empty;
-
-            if (!actionContext.Request.TryGetToken(_accessTokenKey, out accessToken))
+            if (!actionContext.Request.TryGetToken(_accessTokenKey, out string accessToken))
             {
                 var result = new SysApiResult<string>() { Status = SysApiStatus.未授权, Message = "您的登陆身份已过期，请重新登陆" };
 

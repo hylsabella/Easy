@@ -41,9 +41,7 @@ namespace Easy.WebMvc.Modules
                 var response = application.Context.Response;
 
                 //获取访问的【Controller】和【Action】名
-                string controllerName, actionName;
-
-                this.GetControllerAndAction(request, out controllerName, out actionName);
+                this.GetControllerAndAction(request, out string controllerName, out string actionName);
 
                 //判断是否需要预防该接口
                 bool needDefend = DefendAttackContainer.DefendLimitAttackList.Where(x => x.Controller == controllerName
@@ -66,7 +64,7 @@ namespace Easy.WebMvc.Modules
                     response.Close();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -93,9 +91,7 @@ namespace Easy.WebMvc.Modules
         /// </summary>
         private bool CheckHasLimitAttack(HttpRequestWrapper request, string controllerName, string actionName)
         {
-            int maxCount = 0;
-
-            if (!int.TryParse(_freqCount, out maxCount))
+            if (!int.TryParse(_freqCount, out int maxCount))
             {
                 //如果没有配置，默认一秒钟最多3次请求
                 maxCount = 3;

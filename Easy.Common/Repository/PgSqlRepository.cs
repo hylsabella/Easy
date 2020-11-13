@@ -21,7 +21,7 @@ namespace Easy.Common.Repository
         /// </summary>
         /// <param name="id">主键值</param>
         /// <param name="tableIndex">分表Id</param>
-        public T Get(int id, string tableIndex = "", string connectionStringName = "default")
+        public T Get(int id, string connectionStringName = "default", string tableIndex = "")
         {
             if (id <= 0) return default;
 
@@ -42,7 +42,7 @@ namespace Easy.Common.Repository
         /// </summary>
         /// <param name="model">model</param>
         /// <param name="tableIndex">分表Id</param>
-        public int Insert(T model, string tableIndex = "", string connectionStringName = "default")
+        public int Insert(T model, string connectionStringName = "default", string tableIndex = "")
         {
             CheckHelper.NotNull(model, "model");
 
@@ -80,7 +80,7 @@ namespace Easy.Common.Repository
         /// </summary>
         /// <param name="modelList">modelList</param>
         /// <param name="tableIndex">分表Id</param>
-        public int InsertBulk(IList<T> modelList, string tableIndex = "", string connectionStringName = "default")
+        public int InsertBulk(IList<T> modelList, string connectionStringName = "default", string tableIndex = "")
         {
             CheckHelper.ArrayNotHasNull(modelList, "modelList");
 
@@ -118,7 +118,7 @@ namespace Easy.Common.Repository
         /// </summary>
         /// <param name="model">model</param>
         /// <param name="tableIndex">分表Id</param>
-        public void Update(T model, string tableIndex = "", string connectionStringName = "default")
+        public void Update(T model, string connectionStringName = "default", string tableIndex = "")
         {
             CheckHelper.NotNull(model, "model");
             if (model.ID <= 0) throw new Exception("主键Id必须大于0！");
@@ -169,7 +169,7 @@ namespace Easy.Common.Repository
         /// </summary>
         /// <param name="id">主键值</param>
         /// <param name="tableIndex">分表Id</param>
-        public void DeleteByTag(int id, string tableIndex = "", string connectionStringName = "default")
+        public void DeleteByTag(int id, string connectionStringName = "default", string tableIndex = "")
         {
             if (id <= 0) throw new ArgumentException("Id不能为空");
 
@@ -192,7 +192,7 @@ namespace Easy.Common.Repository
         /// </summary>
         /// <param name="id">主键值</param>
         /// <param name="tableIndex">分表Id</param>
-        public void DeleteFromDB(int id, string tableIndex = "", string connectionStringName = "default")
+        public void DeleteFromDB(int id, string connectionStringName = "default", string tableIndex = "")
         {
             if (id <= 0) throw new ArgumentException("Id不能为空");
 

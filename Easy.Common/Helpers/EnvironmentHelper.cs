@@ -60,7 +60,7 @@ namespace Easy.Common.Helpers
                 moc.Dispose();
                 mc.Dispose();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

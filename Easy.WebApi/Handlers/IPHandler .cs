@@ -51,7 +51,7 @@ namespace Easy.WebApi.Handlers
 
                 return base.SendAsync(request, cancellationToken);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return ToResponse(request, HttpStatusCode.InternalServerError, "系统繁忙，请稍后再试！");
             }
@@ -76,9 +76,7 @@ namespace Easy.WebApi.Handlers
         /// </summary>
         private bool CheckHasLimitAttack(HttpRequestMessage request, string routeName)
         {
-            int maxCount = 0;
-
-            if (!int.TryParse(_freqCount, out maxCount))
+            if (!int.TryParse(_freqCount, out int maxCount))
             {
                 //如果没有配置，默认一秒钟最多3次请求
                 maxCount = 3;
