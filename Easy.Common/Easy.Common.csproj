@@ -230,7 +230,6 @@
     <Compile Include="Helpers\CheckHelper.cs" />
     <Compile Include="Extentions\StringExt.cs" />
     <Compile Include="Helpers\EncryptionHelper.cs" />
-    <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\ValidateCodeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
