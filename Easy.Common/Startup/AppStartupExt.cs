@@ -99,8 +99,10 @@ namespace Easy.Common.Startup
         /// <summary>
         /// 初始化全局IoC容器
         /// </summary>
-        public static AppStartup InitIoC(this AppStartup startup, IServiceLocator serviceLocator)
+        public static AppStartup InitIoC(this AppStartup startup, bool hasExtraIocReg)
         {
+            IServiceLocator serviceLocator = new EasyAutofac(hasExtraIocReg: hasExtraIocReg).GetServiceLocator();
+
             if (serviceLocator == null) throw new Exception("IServiceLocator对象不能为空");
 
             EasyIocContainer.InitIocContainer(serviceLocator);
