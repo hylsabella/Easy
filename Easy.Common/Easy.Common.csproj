@@ -163,6 +163,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\AutoRegisterAttribute.cs" />
     <Compile Include="Attributes\DefendAttackRemoveAttribute.cs" />
     <Compile Include="Attributes\DefendAttackAttribute.cs" />
     <Compile Include="BrowserPlugins\IObjectSafety.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Helpers\EnvironmentHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\RandomHelper.cs" />
+    <Compile Include="IoC\Autofac\ContainerBuilderExt.cs" />
     <Compile Include="IoC\Autofac\EasyAutofac.cs" />
     <Compile Include="IoC\Autofac\IAutofacRegistrar.cs" />
     <Compile Include="IoC\EasyIocContainer.cs" />
