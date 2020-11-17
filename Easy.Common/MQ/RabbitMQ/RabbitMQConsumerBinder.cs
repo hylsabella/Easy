@@ -88,7 +88,7 @@ namespace Easy.Common.MQ.RabbitMQ
                         }
                         else
                         {
-                            LogHelper.Error($"消费者处理情况：{JsonConvert.SerializeObject(traceInfo)}", filename: $"RabbitMQ_{queueName}_{result.ReplyType.ToString()}");
+                            LogHelper.Trace($"消费者处理情况：{JsonConvert.SerializeObject(traceInfo)}", filename: $"RabbitMQ_{queueName}_{result.ReplyType.ToString()}");
 
                             if (result.ReplyType == MqReplyType.Ack)
                             {
