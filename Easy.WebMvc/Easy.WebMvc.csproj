@@ -136,7 +136,7 @@
   <ItemGroup>
     <Compile Include="Attributes\CompressAttribute.cs" />
     <Compile Include="Extentions\AppStartupExt.cs" />
-    <Compile Include="Attributes\ExceptionAttribute.cs" />
+    <Compile Include="Filter\GlobalExceptionFilter.cs" />
     <Compile Include="Attributes\UserAuthorizationAttribute.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="Extentions\EnumExt.cs" />

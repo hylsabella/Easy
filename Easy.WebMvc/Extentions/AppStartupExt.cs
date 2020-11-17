@@ -4,13 +4,11 @@ using Easy.Common.IoC.Autofac;
 using Easy.Common.Security;
 using Easy.Common.Startup;
 using Easy.WebMvc.Attributes;
+using Easy.WebMvc.Filter;
 using Easy.WebMvc.Security;
 using FluentValidation.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Web.Mvc;
 
 namespace Easy.WebMvc
@@ -46,7 +44,7 @@ namespace Easy.WebMvc
 
             //Filter 先添加的先执行
             GlobalFilters.Filters.Add(new CompressAttribute());
-            GlobalFilters.Filters.Add(new ExceptionAttribute());
+            GlobalFilters.Filters.Add(new GlobalExceptionFilter());
 
             //设置需要客户端验证和启用非介入式JavaScript
             HtmlHelper.ClientValidationEnabled = true;

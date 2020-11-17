@@ -5,13 +5,13 @@ using System;
 using System.Configuration;
 using System.Web.Mvc;
 
-namespace Easy.WebMvc.Attributes
+namespace Easy.WebMvc.Filter
 {
     /// <summary>
     /// 异常处理
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
-    public class ExceptionAttribute : FilterAttribute, IExceptionFilter
+    public class GlobalExceptionFilter : FilterAttribute, IExceptionFilter
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private static string _errorRedirect = ConfigurationManager.AppSettings["ErrorRedirect"] ?? "/statics/error.html";
