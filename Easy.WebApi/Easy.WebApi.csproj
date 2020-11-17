@@ -121,13 +121,12 @@
   <ItemGroup>
     <Compile Include="Attributes\UserAuthorizationMultiLoginAttribute.cs" />
     <Compile Include="Extentions\AppStartupExt.cs" />
-    <Compile Include="Attributes\ExceptionAttribute.cs" />
     <Compile Include="Attributes\ModelValidatorAttribute.cs" />
     <Compile Include="Attributes\UserAuthorizationAttribute.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="Extentions\HttpRequestMessageExt.cs" />
-    <Compile Include="Handlers\ErrorLogger.cs" />
-    <Compile Include="Handlers\ErrorHandler.cs" />
+    <Compile Include="Handlers\GlobalErrorLogger.cs" />
+    <Compile Include="Handlers\GlobalErrorHandler.cs" />
     <Compile Include="Handlers\IPHandler .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\DefendLimitAttackService.cs" />

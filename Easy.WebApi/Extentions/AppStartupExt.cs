@@ -7,11 +7,8 @@ using Easy.WebApi.Handlers;
 using Easy.WebApi.Security;
 using FluentValidation.WebApi;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Formatting;
 using System.Reflection;
-using System.Text;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 
@@ -51,19 +48,19 @@ namespace Easy.WebApi
             //MessageHandlers：被调用的顺序与添加到MessageHandlers集合的顺序相同
             GlobalConfiguration.Configuration.MessageHandlers.Add(new IPHandler());
 
-            GlobalConfiguration.Configuration.Services.Replace(typeof(IExceptionHandler), new ErrorHandler());
-            GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ErrorLogger());
+            //异常拦截
+            GlobalConfiguration.Configuration.Services.Replace(typeof(IExceptionHandler), new GlobalErrorHandler());
+            GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new GlobalErrorLogger());
 
             //Filter 先添加的先执行
             GlobalConfiguration.Configuration.Filters.Add(new ModelValidatorAttribute());
-            GlobalConfiguration.Configuration.Filters.Add(new ExceptionAttribute());
 
             return startup;
         }
 
         public static AppStartup StartWebApi(this AppStartup startup)
         {
-			startup.Start();
+            startup.Start();
 
             if (EasyAutofac.Container == null)
             {
