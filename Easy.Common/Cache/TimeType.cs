@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Easy.Common.Cache
+﻿namespace Easy.Common.Cache
 {
     public enum TimeType
     {

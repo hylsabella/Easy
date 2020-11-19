@@ -31,7 +31,7 @@ namespace Easy.WebMvc.Filter
 
             if (actionExecutedContext.Exception is FException)
             {
-                result = new SysApiResult<string>() { Status = SysApiStatus.错误, Message = actionExecutedContext.Exception.Message };
+                result = new SysApiResult<string>() { Status = SysApiStatus.失败, Message = actionExecutedContext.Exception.Message };
             }
             else if (actionExecutedContext.Exception is HttpAntiForgeryException)
             {

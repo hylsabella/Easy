@@ -20,7 +20,7 @@ namespace Easy.WebApi.Handlers
             {
                 var result = new SysApiResult<string>()
                 {
-                    Status = SysApiStatus.错误,
+                    Status = SysApiStatus.失败,
                     Message = context.Exception.Message
                 };
 

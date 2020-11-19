@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Easy.Common.Repository
+﻿namespace Easy.Common.Repository
 {
     public class EntityPrimary
     {

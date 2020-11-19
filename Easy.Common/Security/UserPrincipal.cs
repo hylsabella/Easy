@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Security.Principal;
 
 namespace Easy.Common.Security
 {
@@ -54,14 +49,7 @@ namespace Easy.Common.Security
         {
             get
             {
-                var userIdentity = this.identity as UserIdentity;
-
-                if (userIdentity == null)
-                {
-                    return null;
-                }
-
-                return userIdentity.user;
+                return this.identity?.user;
             }
         }
     }

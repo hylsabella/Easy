@@ -7,12 +7,11 @@ using Easy.Common.IoC.Autofac;
 using Easy.Common.MQ;
 using NLog;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Linq;
 
 namespace Easy.Common.Startup
 {
