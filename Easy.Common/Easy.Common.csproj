@@ -93,6 +93,9 @@
     <Reference Include="RabbitMQ.Client, Version=6.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <HintPath>..\packages\RabbitMQ.Client.6.2.1\lib\net461\RabbitMQ.Client.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=106.11.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.11.7\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.2.1.58\lib\net461\StackExchange.Redis.dll</HintPath>
     </Reference>
@@ -228,6 +231,7 @@
     <Compile Include="Security\EasySecretKeySetting.cs" />
     <Compile Include="Security\FormsAuthService.cs" />
     <Compile Include="Security\IFormsAuthService.cs" />
+    <Compile Include="Serializer\RestSharpJsonNetSerializer.cs" />
     <Compile Include="Startup\AppStartupExt.cs" />
     <Compile Include="Helpers\CheckHelper.cs" />
     <Compile Include="Extentions\StringExt.cs" />
