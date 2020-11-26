@@ -86,23 +86,23 @@ namespace Easy.WebMvc
                     return false;
                 }
 
-                var userName = this.Context.User.Identity.Name;
-
                 var cookie = System.Web.HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
 
-                if (cookie != null)
+                if (cookie == null)
                 {
-                    var ticket = FormsAuthentication.Decrypt(cookie.Value);
-
-                    if (ticket != null)
-                    {
-                        var user = JsonConvert.DeserializeObject<UserModel>(ticket.UserData);
-
-                        return user.IsPanKouUser;
-                    }
+                    return false;
                 }
 
-                return false;
+                var ticket = FormsAuthentication.Decrypt(cookie.Value);
+
+                if (ticket == null)
+                {
+                    return false;
+                }
+
+                var user = JsonConvert.DeserializeObject<UserModel>(ticket.UserData);
+
+                return user.IsPanKouUser;
             }
         }
     }

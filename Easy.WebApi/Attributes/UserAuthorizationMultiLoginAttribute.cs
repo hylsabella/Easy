@@ -4,8 +4,6 @@ using Easy.Common.Security;
 using Easy.Common.UI;
 using NLog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Principal;
 using System.Threading;

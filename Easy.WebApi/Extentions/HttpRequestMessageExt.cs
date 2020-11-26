@@ -1,10 +1,7 @@
 ﻿using Easy.Common;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Easy.WebApi
@@ -22,9 +19,7 @@ namespace Easy.WebApi
         {
             accessToken = string.Empty;
 
-            IEnumerable<string> headers;
-
-            if (!requestMessage.Headers.TryGetValues(tokenName, out headers))
+            if (!requestMessage.Headers.TryGetValues(tokenName, out IEnumerable<string> headers))
             {
                 return false;
             }
