@@ -24,10 +24,7 @@ namespace Easy.WebApi
         /// </summary>
         public static AppStartup RegWebApi(this AppStartup startup, Assembly assembly)
         {
-            if (EasyAutofac.Container != null)
-            {
-                throw new Exception("注册WebApi必须在初始化IOC容器【InitIoc】之前完成！");
-            }
+            if (EasyAutofac.Container != null) throw new Exception("注册WebApi必须在初始化IOC容器【InitIoc】之前完成！");
 
             var builder = EasyAutofac.ContainerBuilder;
 
@@ -62,10 +59,7 @@ namespace Easy.WebApi
         {
             startup.Start();
 
-            if (EasyAutofac.Container == null)
-            {
-                throw new Exception("请先加载Ioc容器");
-            }
+            if (EasyAutofac.Container == null) throw new Exception("请先加载Ioc容器");
 
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(EasyAutofac.Container);
 
@@ -87,7 +81,7 @@ namespace Easy.WebApi
         /// </summary>
         public static AppStartup InitMvcLimitAttack(this AppStartup startup, Assembly assembly)
         {
-            var limitAttackModelList = DefendLimitAttackService.GetLimitAttackModel(assembly);
+            var limitAttackModelList = DefendAttackService.GetLimitAttackModel(assembly);
 
             DefendAttackContainer.InitDefendAttackList(limitAttackModelList, assembly.GetName().Name);
 

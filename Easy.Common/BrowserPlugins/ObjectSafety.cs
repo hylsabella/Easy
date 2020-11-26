@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Easy.Common
 {
     class ObjectSafety : IObjectSafety
     {
-        private const string _IID_IDispatch =           "{00020400-0000-0000-C000-000000000046}";
-        private const string _IID_IDispatchEx =         "{a6ef9860-c720-11d0-9337-00a0c90dcaa9}";
-        private const string _IID_IPersistStorage =     "{0000010A-0000-0000-C000-000000000046}";
-        private const string _IID_IPersistStream =      "{00000109-0000-0000-C000-000000000046}";
+        private const string _IID_IDispatch = "{00020400-0000-0000-C000-000000000046}";
+        private const string _IID_IDispatchEx = "{a6ef9860-c720-11d0-9337-00a0c90dcaa9}";
+        private const string _IID_IPersistStorage = "{0000010A-0000-0000-C000-000000000046}";
+        private const string _IID_IPersistStream = "{00000109-0000-0000-C000-000000000046}";
         private const string _IID_IPersistPropertyBag = "{37D84F60-42CB-11CE-8135-00AA004BB851}";
 
         private const int INTERFACESAFE_FOR_UNTRUSTED_CALLER = 0x00000001;

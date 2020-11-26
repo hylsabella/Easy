@@ -5,7 +5,7 @@ namespace Easy.Common.Security
     /// <summary>
     /// 用户凭证
     /// </summary>
-    public class UserPrincipal : System.Security.Principal.IPrincipal
+    public class UserPrincipal : IPrincipal
     {
         /// <summary>
         /// 用户身份

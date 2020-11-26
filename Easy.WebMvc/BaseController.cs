@@ -19,12 +19,7 @@ namespace Easy.WebMvc
 
                 var principal = this.User as UserPrincipal;
 
-                if (principal == null)
-                {
-                    return null;
-                }
-
-                return principal.CurrentUser;
+                return principal?.CurrentUser;
             }
         }
 
@@ -35,7 +30,7 @@ namespace Easy.WebMvc
                 return new JsonResult();
             }
 
-            return new JsonNetResult()
+            return new JsonNetResult
             {
                 Data = data,
                 ContentType = contentType,

@@ -1,5 +1,6 @@
 ﻿using Easy.Common.Security;
 using Newtonsoft.Json;
+using System;
 using System.Web.Security;
 
 namespace Easy.WebMvc
@@ -14,7 +15,7 @@ namespace Easy.WebMvc
         /// </summary>
         public bool IsNeedLayout()
         {
-            if (this.Context.Request.QueryString["NeedLayout"] == "false")
+            if (string.Equals(this.Context.Request.QueryString["NeedLayout"], "false", StringComparison.OrdinalIgnoreCase))
             {
                 Layout = "";
                 return false;
@@ -32,12 +33,7 @@ namespace Easy.WebMvc
             {
                 var userPrincipal = this.Context.User as UserPrincipal;
 
-                if (userPrincipal == null)
-                {
-                    return null;
-                }
-
-                var userModel = userPrincipal.CurrentUser as UserModel;
+                var userModel = userPrincipal?.CurrentUser as UserModel;
 
                 if (userModel == null)
                 {

@@ -11,7 +11,6 @@ namespace Easy.WebMvc
         /// 获取枚举列表
         /// </summary>
         /// <param name="mustKeyWord">必须含有的关键字（用来剔除，只保留部分选项）</param>
-        /// <returns></returns>
         public static List<SelectListItem> GetEnumList(this Enum enumValue, Enum selectedValue = null, bool isNeedAddAll = true,
             string mustKeyWord = "")
         {

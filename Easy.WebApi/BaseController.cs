@@ -19,12 +19,7 @@ namespace Easy.WebApi
 
                 var principal = this.User as UserPrincipal;
 
-                if (principal == null)
-                {
-                    return null;
-                }
-
-                return principal.CurrentUser;
+                return principal?.CurrentUser;
             }
         }
 

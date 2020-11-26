@@ -1,9 +1,11 @@
-﻿namespace Easy.Common.Security
+﻿using System.Security.Principal;
+
+namespace Easy.Common.Security
 {
     /// <summary>
     /// 用户身份
     /// </summary>
-    public class UserIdentity : System.Security.Principal.IIdentity
+    public class UserIdentity : IIdentity
     {
         /// <summary>
         /// 当前用户

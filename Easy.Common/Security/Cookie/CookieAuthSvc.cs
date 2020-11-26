@@ -6,7 +6,7 @@ using System.Web.Security;
 namespace Easy.Common.Security
 {
     /// <summary>
-    /// Form验证服务
+    /// Cookie验证服务
     /// </summary>
     public class CookieAuthSvc : ICookieAuthSvc
     {
@@ -79,6 +79,5 @@ namespace Easy.Common.Security
         {
             FormsAuthentication.SignOut();
         }
-
     }
 }

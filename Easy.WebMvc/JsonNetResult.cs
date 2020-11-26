@@ -17,10 +17,7 @@ namespace Easy.WebMvc
 
         public override void ExecuteResult(ControllerContext context)
         {
-            if (context == null)
-            {
-                throw new ArgumentNullException("context");
-            }
+            if (context == null) throw new ArgumentNullException("context");
 
             HttpResponseBase response = context.HttpContext.Response;
 
@@ -31,19 +28,21 @@ namespace Easy.WebMvc
                 response.ContentEncoding = ContentEncoding;
             }
 
-            if (Data != null)
+            if (Data == null)
             {
-                JsonTextWriter writer = new JsonTextWriter(response.Output)
-                {
-                    Formatting = Formatting
-                };
-
-                JsonSerializer serializer = JsonSerializer.Create(SerializerSettings);
-
-                serializer.Serialize(writer, Data);
-
-                writer.Flush();
+                return;
             }
+
+            JsonTextWriter writer = new JsonTextWriter(response.Output)
+            {
+                Formatting = Formatting
+            };
+
+            JsonSerializer serializer = JsonSerializer.Create(SerializerSettings);
+
+            serializer.Serialize(writer, Data);
+
+            writer.Flush();
         }
     }
 }
