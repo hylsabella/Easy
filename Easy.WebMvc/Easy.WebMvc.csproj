@@ -137,14 +137,14 @@
     <Compile Include="Attributes\CompressAttribute.cs" />
     <Compile Include="Extentions\AppStartupExt.cs" />
     <Compile Include="Filter\GlobalExceptionFilter.cs" />
-    <Compile Include="Attributes\UserAuthorizationAttribute.cs" />
+    <Compile Include="Attributes\UserAuthAttribute.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="Extentions\EnumExt.cs" />
     <Compile Include="JsonNetResult.cs" />
     <Compile Include="Modules\IPModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RazorViewPage.cs" />
-    <Compile Include="Security\DefendLimitAttackService.cs" />
+    <Compile Include="Security\DefendAttackService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

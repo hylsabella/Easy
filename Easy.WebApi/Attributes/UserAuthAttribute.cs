@@ -20,7 +20,7 @@ namespace Easy.WebApi.Attributes
     /// 用户权限验证
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
-    public class UserAuthorizationAttribute : FilterAttribute, IAuthorizationFilter
+    public class UserAuthAttribute : FilterAttribute, IAuthorizationFilter
     {
         private const string _msHttpContextKey = "MS_HttpContext";
         private const string _accessTokenKey = "accesstoken";

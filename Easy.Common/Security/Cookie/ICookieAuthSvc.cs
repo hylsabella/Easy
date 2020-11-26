@@ -1,6 +1,6 @@
 ﻿namespace Easy.Common.Security
 {
-    public interface IFormsAuthService
+    public interface ICookieAuthSvc
     {
         string GetFormsCookieName();
 

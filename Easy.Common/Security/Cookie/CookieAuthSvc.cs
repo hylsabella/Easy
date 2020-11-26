@@ -8,7 +8,7 @@ namespace Easy.Common.Security
     /// <summary>
     /// Form验证服务
     /// </summary>
-    public class FormsAuthService : IFormsAuthService
+    public class CookieAuthSvc : ICookieAuthSvc
     {
         private readonly HttpContextBase _httpContext;
         private readonly TimeSpan _expirationTimeSpan;
@@ -23,7 +23,7 @@ namespace Easy.Common.Security
             return FormsAuthentication.FormsCookieName;
         }
 
-        public FormsAuthService(HttpContextBase httpContext)
+        public CookieAuthSvc(HttpContextBase httpContext)
         {
             this._httpContext = httpContext;
             this._expirationTimeSpan = FormsAuthentication.Timeout;

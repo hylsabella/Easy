@@ -79,7 +79,7 @@ namespace Easy.WebMvc
         /// </summary>
         public static AppStartup InitMvcLimitAttack(this AppStartup startup, Assembly assembly)
         {
-            var limitAttackModelList = DefendLimitAttackService.GetLimitAttackModel(assembly);
+            var limitAttackModelList = DefendAttackService.GetLimitAttackModel(assembly);
 
             DefendAttackContainer.InitDefendAttackList(limitAttackModelList, assembly.GetName().Name);
 

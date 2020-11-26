@@ -1,7 +1,8 @@
-﻿namespace Easy.Common.Security
+﻿namespace Easy.Common.Setting
 {
-    public static class EasySecretKeySetting
+    public static class SecretKeySetting
     {
+        /// <summary>
         /// Easy通用DES加密密钥（8位半角字符）
         /// </summary>
         public static string PlatformDESKey

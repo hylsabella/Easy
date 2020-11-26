@@ -1,6 +1,6 @@
 ﻿using Easy.Common.Extentions;
 using Easy.Common.Helpers;
-using Easy.Common.Security;
+using Easy.Common.Setting;
 using Npgsql;
 using System;
 using System.Configuration;
@@ -26,7 +26,7 @@ namespace Easy.Common.Repository
             if (isEncryption)
             {
                 //解密
-                connectionString = EncryptionHelper.DES解密(connectionString, EasySecretKeySetting.PlatformDESKey);
+                connectionString = EncryptionHelper.DES解密(connectionString, SecretKeySetting.PlatformDESKey);
             }
 
             return connectionString;

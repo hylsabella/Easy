@@ -63,11 +63,20 @@
     <Reference Include="Autofac.Extras.CommonServiceLocator, Version=6.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Extras.CommonServiceLocator.6.0.1\lib\netstandard2.0\Autofac.Extras.CommonServiceLocator.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.4.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.5.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.5\lib\net46\CommonServiceLocator.dll</HintPath>
     </Reference>
+    <Reference Include="Consul, Version=1.6.1.1, Culture=neutral, PublicKeyToken=20a6ad9a81df1d95, processorArchitecture=MSIL">
+      <HintPath>..\packages\Consul.1.6.1.1\lib\net461\Consul.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.78\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="JWT, Version=7.0.0.0, Culture=neutral, PublicKeyToken=6f98bca0f40f2ecf, processorArchitecture=MSIL">
+      <HintPath>..\packages\JWT.7.3.1\lib\net46\JWT.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -127,6 +136,7 @@
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -166,6 +176,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aop\LogInterceptor.cs" />
     <Compile Include="Attributes\AutoRegisterAttribute.cs" />
     <Compile Include="Attributes\DefendAttackRemoveAttribute.cs" />
     <Compile Include="Attributes\DefendAttackAttribute.cs" />
@@ -180,16 +191,28 @@
     <Compile Include="Cache\Redis\RedisCache_Hash.cs" />
     <Compile Include="Cache\Redis\RedisCache_Queue.cs" />
     <Compile Include="Cache\Redis\RedisCache_String.cs" />
+    <Compile Include="Consul\ConsulBuilderExt.cs" />
+    <Compile Include="Consul\ConsulOption.cs" />
+    <Compile Include="Enums\DeviceType.cs" />
+    <Compile Include="Enums\NetType.cs" />
+    <Compile Include="Enums\WebType.cs" />
     <Compile Include="Extentions\AppDomainExt.cs" />
     <Compile Include="Extentions\HttpRequestBaseExt.cs" />
+    <Compile Include="Helpers\BankCardHelper.cs" />
     <Compile Include="Helpers\BitmapHelper.cs" />
     <Compile Include="Helpers\EnvironmentHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
+    <Compile Include="Helpers\OrderNoHelper.cs" />
     <Compile Include="Helpers\RandomHelper.cs" />
+    <Compile Include="Helpers\TableIdHelper.cs" />
+    <Compile Include="Helpers\UserAgentHelper.cs" />
+    <Compile Include="IoC\Autofac\AutofacRegistrar.cs" />
     <Compile Include="IoC\Autofac\ContainerBuilderExt.cs" />
     <Compile Include="IoC\Autofac\EasyAutofac.cs" />
     <Compile Include="IoC\Autofac\IAutofacRegistrar.cs" />
     <Compile Include="IoC\EasyIocContainer.cs" />
+    <Compile Include="Model\UserTreeNode.cs" />
+    <Compile Include="Model\UserTreeNodeCache.cs" />
     <Compile Include="MQ\IMqEventBus.cs" />
     <Compile Include="MQ\IMqConsumer.cs" />
     <Compile Include="MQ\IMqConsumerBinder.cs" />
@@ -226,12 +249,18 @@
     <Compile Include="Repository\RepositoryCenter.cs" />
     <Compile Include="Repository\SearchBase.cs" />
     <Compile Include="Repository\SqlServerRepository.cs" />
-    <Compile Include="Security\DefendAttackContainer.cs" />
-    <Compile Include="Security\DefendAttackModel.cs" />
-    <Compile Include="Security\EasySecretKeySetting.cs" />
-    <Compile Include="Security\FormsAuthService.cs" />
-    <Compile Include="Security\IFormsAuthService.cs" />
+    <Compile Include="Security\DefendAttack\DefendAttackContainer.cs" />
+    <Compile Include="Security\DefendAttack\DefendAttackModel.cs" />
+    <Compile Include="Security\Cookie\CookieAuthSvc.cs" />
+    <Compile Include="Security\Cookie\ICookieAuthSvc.cs" />
+    <Compile Include="Security\Token\ITokenSvc.cs" />
+    <Compile Include="Security\Token\TokenModel.cs" />
+    <Compile Include="Security\Token\TokenSvc.cs" />
     <Compile Include="Serializer\RestSharpJsonNetSerializer.cs" />
+    <Compile Include="Service\IUserTreeSvc.cs" />
+    <Compile Include="Service\UserTreeSvc.cs" />
+    <Compile Include="Setting\CommonCacheKeys.cs" />
+    <Compile Include="Setting\SecretKeySetting.cs" />
     <Compile Include="Startup\AppStartupExt.cs" />
     <Compile Include="Helpers\CheckHelper.cs" />
     <Compile Include="Extentions\StringExt.cs" />
@@ -254,10 +283,10 @@
     <Compile Include="Security\UserPrincipal.cs" />
     <Compile Include="Startup\AppStartup.cs" />
     <Compile Include="Startup\EasyMefContainer.cs" />
+    <Compile Include="UI\PageUIResult.cs" />
+    <Compile Include="UI\PageUISearch.cs" />
     <Compile Include="UI\SysApiResult.cs" />
-    <Compile Include="UI\PageResult.cs" />
     <Compile Include="UI\SysApiStatus.cs" />
-    <Compile Include="UI\SearchBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resource.resx">

@@ -15,7 +15,7 @@ namespace Easy.WebMvc.Attributes
     /// 用户权限验证
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
-    public class UserAuthorizationAttribute : AuthorizeAttribute, IAuthorizationFilter
+    public class UserAuthAttribute : AuthorizeAttribute, IAuthorizationFilter
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 

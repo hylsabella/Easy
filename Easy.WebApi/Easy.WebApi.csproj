@@ -119,10 +119,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\UserAuthorizationMultiLoginAttribute.cs" />
+    <Compile Include="Attributes\UserAuthMultiLoginAttribute.cs" />
     <Compile Include="Extentions\AppStartupExt.cs" />
     <Compile Include="Attributes\ModelValidatorAttribute.cs" />
-    <Compile Include="Attributes\UserAuthorizationAttribute.cs" />
+    <Compile Include="Attributes\UserAuthAttribute.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="Extentions\HttpRequestMessageExt.cs" />
     <Compile Include="Handlers\GlobalErrorLogger.cs" />

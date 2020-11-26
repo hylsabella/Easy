@@ -18,7 +18,7 @@ namespace Easy.WebApi.Attributes
     /// 用户权限验证（支持多登陆）
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
-    public class UserAuthorizationMultiLoginAttribute : FilterAttribute, IAuthorizationFilter
+    public class UserAuthMultiLoginAttribute : FilterAttribute, IAuthorizationFilter
     {
         private const string _msHttpContextKey = "MS_HttpContext";
         private const string _accessTokenKey = "accesstoken";

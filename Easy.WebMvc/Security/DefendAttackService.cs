@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Easy.WebMvc.Security
 {
-    public static class DefendLimitAttackService
+    public static class DefendAttackService
     {
         /// <summary>
         /// 获取需要预防流量攻击的模块

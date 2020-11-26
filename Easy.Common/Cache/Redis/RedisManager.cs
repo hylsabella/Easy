@@ -1,5 +1,5 @@
 ﻿using Easy.Common.Helpers;
-using Easy.Common.Security;
+using Easy.Common.Setting;
 using StackExchange.Redis;
 using System;
 using System.Configuration;
@@ -47,7 +47,7 @@ namespace Easy.Common.Cache.Redis
 
                                 if (isEncryption)
                                 {
-                                    string pwd = EncryptionHelper.DES解密(password, EasySecretKeySetting.PlatformDESKey);
+                                    string pwd = EncryptionHelper.DES解密(password, SecretKeySetting.PlatformDESKey);
 
                                     configOptions.Password = pwd;
                                 }

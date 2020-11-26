@@ -1,5 +1,5 @@
 ﻿using Easy.Common.Helpers;
-using Easy.Common.Security;
+using Easy.Common.Setting;
 using RabbitMQ.Client;
 using System;
 using System.Configuration;
@@ -45,7 +45,7 @@ namespace Easy.Common.MQ.RabbitMQ
 
                                 if (isEncryption)
                                 {
-                                    password = EncryptionHelper.DES解密(password, EasySecretKeySetting.PlatformDESKey);
+                                    password = EncryptionHelper.DES解密(password, SecretKeySetting.PlatformDESKey);
                                 }
 
                                 var factory = new ConnectionFactory
