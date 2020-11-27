@@ -37,7 +37,7 @@ namespace Easy.Common.MQ
                 }
                 else
                 {
-                    if (parameter.ParameterType.Name.IndexOf(nameof(MqMessage<object>), StringComparison.OrdinalIgnoreCase) != -1)
+                    if (parameter.ParameterType.Name.IndexOf(nameof(MqMessage<object>), StringComparison.OrdinalIgnoreCase) > -1)
                     {
                         value = JsonConvert.DeserializeObject(msgJson, parameter.ParameterType);
                     }
@@ -121,7 +121,10 @@ namespace Easy.Common.MQ
                         continue;
                     }
 
-                    yield return new MqConsumerExecutor(attr.RouteName, attr.PrefetchCount, attr.PrefetchSize, attr.AutoAck, typeInfo, method, parameters);
+                    for (uint num = 1; num <= attr.ParallelNum; num++)
+                    {
+                        yield return new MqConsumerExecutor(attr.RouteName, attr.PrefetchCount, attr.PrefetchSize, attr.AutoAck, num, typeInfo, method, parameters);
+                    }
                 }
             }
         }
