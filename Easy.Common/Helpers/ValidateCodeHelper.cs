@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace Easy.Common.Helpers
 {
@@ -21,6 +18,7 @@ namespace Easy.Common.Helpers
         {
             get { return 10; }
         }
+
         /// <summary>
         /// 验证码的最小长度
         /// </summary>
@@ -28,11 +26,11 @@ namespace Easy.Common.Helpers
         {
             get { return 1; }
         }
+
         /// <summary>
         /// 生成验证码
         /// </summary>
         /// <param name="length">指定验证码的长度</param>
-        /// <returns></returns>
         public static string CreateValidateCode(int length)
         {
             int[] randMembers = new int[length];

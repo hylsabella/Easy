@@ -1,6 +1,7 @@
 ﻿using Easy.Common.Security;
 using Newtonsoft.Json;
 using System;
+using System.Web.Mvc;
 using System.Web.Security;
 
 namespace Easy.WebMvc
@@ -8,7 +9,7 @@ namespace Easy.WebMvc
     /// <summary>
     /// 视图渲染
     /// </summary>
-    public abstract class RazorViewPage<TModel> : System.Web.Mvc.WebViewPage<TModel>
+    public abstract class EasyViewPage<TModel> : WebViewPage<TModel>
     {
         /// <summary>
         /// 设置母版页页（ajax请求不需要重复加载母版页）

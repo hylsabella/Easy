@@ -41,7 +41,7 @@ namespace Easy.WebMvc
                 list.Insert(0, new SelectListItem { Text = "全部", Value = "-1" });
             }
 
-            if (null != selectedValue)
+            if (selectedValue != null)
             {
                 var find = list.Where(i => (Convert.ToInt32(selectedValue).ToString() == i.Value));
 

@@ -1,8 +1,6 @@
 ﻿using Quartz;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Easy.Common.Extentions
 {
@@ -20,14 +18,11 @@ namespace Easy.Common.Extentions
             string groupName = jobName + "Group";
             string triggerName = jobName + "Trigger";
 
-            JobBuilder jobBuilder = JobBuilder.Create<T>()
-                                    .WithIdentity(jobName, groupName);
+            JobBuilder jobBuilder = JobBuilder.Create<T>().WithIdentity(jobName, groupName);
 
             if (jobDataDic != null)
             {
-                JobDataMap jobDataMap = new JobDataMap(jobDataDic);
-
-                jobBuilder.UsingJobData(jobDataMap);
+                jobBuilder.UsingJobData(new JobDataMap(jobDataDic));
             }
 
             IJobDetail job = jobBuilder.Build();
@@ -44,23 +39,17 @@ namespace Easy.Common.Extentions
         /// <param name="repeatCount">重复次数，不填或者为0：不限次</param>
         public static void AddJobExt(this IScheduler scheduler, Type type, TimeSpan intervalTs, DateTime? startAt = null, int? repeatCount = null, IDictionary<string, object> jobDataDic = null)
         {
-            if (!typeof(IJob).IsAssignableFrom(type))
-            {
-                throw new ArgumentException("传入的类型必须是IJob的派生类！");
-            }
+            if (!typeof(IJob).IsAssignableFrom(type)) throw new ArgumentException("传入的类型必须是IJob的派生类！");
 
             string jobName = type.Name;
             string groupName = jobName + "Group";
             string triggerName = jobName + "Trigger";
 
-            JobBuilder jobBuilder = JobBuilder.Create(type)
-                                    .WithIdentity(jobName, groupName);
+            JobBuilder jobBuilder = JobBuilder.Create(type).WithIdentity(jobName, groupName);
 
             if (jobDataDic != null)
             {
-                JobDataMap jobDataMap = new JobDataMap(jobDataDic);
-
-                jobBuilder.UsingJobData(jobDataMap);
+                jobBuilder.UsingJobData(new JobDataMap(jobDataDic));
             }
 
             IJobDetail job = jobBuilder.Build();
@@ -68,7 +57,7 @@ namespace Easy.Common.Extentions
             AddJob(scheduler, intervalTs, startAt, repeatCount, groupName, triggerName, job);
         }
 
-        private static void AddJob(IScheduler scheduler, TimeSpan intervalTs, DateTime? startAt, int? repeatCount, string groupName, string triggerName, IJobDetail job)
+        private static async void AddJob(IScheduler scheduler, TimeSpan intervalTs, DateTime? startAt, int? repeatCount, string groupName, string triggerName, IJobDetail job)
         {
             TriggerBuilder triggerBuilder = null;
 
@@ -102,7 +91,7 @@ namespace Easy.Common.Extentions
 
             ITrigger trigger = triggerBuilder.Build();
 
-            scheduler.ScheduleJob(job, trigger);
+            await scheduler.ScheduleJob(job, trigger);
         }
     }
 }

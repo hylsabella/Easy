@@ -1,24 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Easy.Common.Helpers
 {
     public class BitmapHelper
     {
-
         /// <summary>
         /// base64转bitmap
         /// </summary>
-        /// <param name="base64"></param>
-        /// <returns></returns>
         public Bitmap Base64ToBitmap(string base64)
         {
             byte[] b = Convert.FromBase64String(base64);
+
             using (MemoryStream ms = new MemoryStream(b))
             {
                 Bitmap bitmap = new Bitmap(ms);
@@ -29,11 +23,10 @@ namespace Easy.Common.Helpers
         /// <summary>
         /// bitmap转base64
         /// </summary>
-        /// <param name="bimap"></param>
-        /// <returns></returns>
         public string BitmapToBase64(Bitmap bimap, System.Drawing.Imaging.ImageFormat format)
         {
             var bast64Result = string.Empty;
+
             using (MemoryStream ms = new MemoryStream())
             {
                 bimap.Save(ms, format);
@@ -43,28 +36,8 @@ namespace Easy.Common.Helpers
                 bast64Result = Convert.ToBase64String(arr);
                 ms.Close();
             }
-            return bast64Result;
-        }
 
-        /// <summary>
-        /// 使用实例
-        /// 注意1：原始图片的大小要求（360*360 + ），人工处理原始图的时候需要注意，下面留白的地方多点
-        /// 注意2：结合Win.Tool工具实际调好了参数后再配置到后端
-        /// </summary>
-        private void demo()
-        {
-            try
-            {
-                BitmapHelper bitmapHelper = new BitmapHelper();
-                string imagePath = "d:/testSdd.png"; //原图
-                string imagePathNew = "d:/new.png"; //新图保存到的路径
-                var imgBase64 = bitmapHelper.GetNewBitmapBase64(imagePath, "充值金额：10501.18 元", 320, 345, 365);
-                bitmapHelper.Base64ImageToImageFile(imgBase64, imagePathNew, System.Drawing.Imaging.ImageFormat.Png);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return bast64Result;
         }
 
         /// <summary>
@@ -86,7 +59,6 @@ namespace Easy.Common.Helpers
         /// <param name="tip2TextEmSize">提示2文本的字体大小(默认12)</param>
         /// <param name="tip2TextHtmlColorStr">提示2文本的字体颜色（默认#933eea）</param>
         /// <param name="isTip2TextBold">提示2文本是否粗体（默认粗体）</param>
-        /// <returns></returns>
         public string GetNewBitmapBase64(string orginFilePath, string moneyText, int moneyTextPointY, int tip1TextPointY, int tip2TextPointY,
             int moneyTextEmSize = 16, string moneyTextHtmlColorStr = "#e80c88", bool isMoneyTextBold = true,
             string tip1Text = "请按当前的指定金额充值，否则无法到账", int tip1TextEmSize = 12, string tip1TextHtmlColorStr = "#933eea",
@@ -94,10 +66,7 @@ namespace Easy.Common.Helpers
             string tip2Text = "小数点后的金额也会到账，谢谢！", int tip2TextEmSize = 12, string tip2TextHtmlColorStr = "#933eea",
             bool isTip2TextBold = true)
         {
-            if (!File.Exists(orginFilePath))
-            {
-                throw new Exception("原始图片文件不存在！");
-            }
+            if (!File.Exists(orginFilePath)) throw new Exception("原始图片文件不存在！");
 
             using (FileStream fs = new FileStream(orginFilePath, FileMode.Open))
             {
@@ -136,7 +105,6 @@ namespace Easy.Common.Helpers
         /// <param name="tip2TextEmSize">提示2文本的字体大小(默认12)</param>
         /// <param name="tip2TextHtmlColorStr">提示2文本的字体颜色（默认#933eea）</param>
         /// <param name="isTip2TextBold">提示2文本是否粗体（默认粗体）</param>
-        /// <returns></returns>
         public string GetNewBitmapBase64FromBase64(string originImageBase64, string moneyText, int moneyTextPointY, int tip1TextPointY, int tip2TextPointY,
         int moneyTextEmSize = 16, string moneyTextHtmlColorStr = "#e80c88", bool isMoneyTextBold = true,
         string tip1Text = "请按当前的指定金额充值，否则无法到账", int tip1TextEmSize = 12, string tip1TextHtmlColorStr = "#933eea",
@@ -182,7 +150,6 @@ namespace Easy.Common.Helpers
         /// <param name="tip2TextEmSize">提示2文本的字体大小(默认12)</param>
         /// <param name="tip2TextHtmlColorStr">提示2文本的字体颜色（默认#933eea）</param>
         /// <param name="isTip2TextBold">提示2文本是否粗体（默认粗体）</param>
-        /// <returns></returns>
         private string GetNewBitmapBase64(Stream bitmapStream, string moneyText, int moneyTextPointY, int tip1TextPointY, int tip2TextPointY,
             int moneyTextEmSize = 16, string moneyTextHtmlColorStr = "#e80c88", bool isMoneyTextBold = true,
             string tip1Text = "请按当前的指定金额充值，否则无法到账", int tip1TextEmSize = 12, string tip1TextHtmlColorStr = "#933eea",
@@ -304,10 +271,9 @@ namespace Easy.Common.Helpers
             byte[] arr = Convert.FromBase64String(imageBase64);
             using (MemoryStream ms = new MemoryStream(arr))
             {
-                System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(ms);
+                Bitmap bmp = new Bitmap(ms);
                 bmp.Save(saveImagePath, imgFormat);
             }
         }
-
     }
 }

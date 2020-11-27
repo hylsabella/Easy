@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace Easy.Common.Helpers
 {
@@ -13,10 +8,7 @@ namespace Easy.Common.Helpers
         {
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
 
-            if (!dir.Exists)
-            {
-                throw new DirectoryNotFoundException("指定的目录不存在: " + sourceDirName);
-            }
+            if (!dir.Exists) throw new DirectoryNotFoundException("指定的目录不存在: " + sourceDirName);
 
             DirectoryInfo[] dirs = dir.GetDirectories();
 

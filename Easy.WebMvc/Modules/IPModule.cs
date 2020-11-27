@@ -3,10 +3,8 @@ using Easy.Common.Cache;
 using Easy.Common.IoC;
 using Easy.Common.Security;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
 using System.Web;
 
 namespace Easy.WebMvc.Modules

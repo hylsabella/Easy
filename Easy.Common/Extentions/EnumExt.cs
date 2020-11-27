@@ -32,16 +32,7 @@ namespace Easy.Common.Extentions
 
         public static bool IsInDefined(this Enum enumValue)
         {
-            var desc = string.Empty;
-
             var isOk = Enum.IsDefined(enumValue.GetType(), enumValue);
-
-            //var objs = enumValue.GetType().GetCustomAttributes(typeof(System.ComponentModel.DescriptionAttribute), false);
-
-            //if (objs != null && objs.Length > 0)
-            //{
-            //    desc = ((System.ComponentModel.DescriptionAttribute)objs[0]).Description;
-            //}
 
             return isOk;
         }

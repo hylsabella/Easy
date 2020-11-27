@@ -59,7 +59,7 @@ namespace Easy.WebApi
         {
             startup.Start();
 
-            if (EasyAutofac.Container == null) throw new Exception("请先加载Ioc容器");
+            if (EasyAutofac.Container == null) throw new Exception("请先加载IoC容器");
 
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(EasyAutofac.Container);
 

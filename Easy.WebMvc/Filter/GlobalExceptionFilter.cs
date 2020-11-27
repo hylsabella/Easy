@@ -27,7 +27,7 @@ namespace Easy.WebMvc.Filter
                 return;
             }
 
-            SysApiResult<string> result = null;
+            SysApiResult<string> result;
 
             if (actionExecutedContext.Exception is FException)
             {

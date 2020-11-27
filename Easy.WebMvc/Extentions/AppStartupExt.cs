@@ -54,7 +54,7 @@ namespace Easy.WebMvc
         {
             startup.Start();
 
-            if (EasyAutofac.Container == null) throw new Exception("请先加载Ioc容器");
+            if (EasyAutofac.Container == null) throw new Exception("请先加载IoC容器");
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(EasyAutofac.Container));
 

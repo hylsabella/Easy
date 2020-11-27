@@ -1,51 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Design.PluralizationServices;
-using System.Globalization;
-using System.Linq;
+using System.IO;
+using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 
 namespace Easy.Common
 {
     public static class StringExt
     {
-        private static readonly PluralizationService _pluralizationService =
-            PluralizationService.CreateService(CultureInfo.CreateSpecificCulture("EN"));
-
-
-        /// <summary>
-        /// 返回单词的复数形式
-        /// </summary>
-        public static string ToPluralize(this string input)
-        {
-            return _pluralizationService.Pluralize(input);
-        }
+        public static HtmlString AsRaw(this string value) => new HtmlString(value);
 
         /// <summary>
         /// 汉字转换为拼音
         /// </summary>
         public static string ToPinYin(this string input)
         {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return string.Empty;
+            }
+
             input = input.Trim();
-            byte[] arr = new byte[2];   //每个汉字为2字节 
-            StringBuilder result = new StringBuilder();//使用StringBuilder优化字符串连接
-            int charCode = 0;
-            int arr1 = 0;
-            int arr2 = 0;
+            var result = new StringBuilder();//使用StringBuilder优化字符串连接
+
             char[] arrChar = input.ToCharArray();
+
             for (int j = 0; j < arrChar.Length; j++)   //遍历输入的字符 
             {
-                arr = Encoding.Default.GetBytes(arrChar[j].ToString());//根据系统默认编码得到字节码 
+                byte[] arr = Encoding.Default.GetBytes(arrChar[j].ToString());//根据系统默认编码得到字节码 
+
                 if (arr.Length == 1)//如果只有1字节说明该字符不是汉字，结束本次循环 
                 {
                     result.Append(arrChar[j].ToString());
                     continue;
 
                 }
-                arr1 = (short)(arr[0]);   //取字节1 
-                arr2 = (short)(arr[1]);   //取字节2 
-                charCode = arr1 * 256 + arr2 - 65536;//计算汉字的编码 
+
+                int arr1 = arr[0];   //取字节1 
+                int arr2 = arr[1];   //取字节2 
+                int charCode = arr1 * 256 + arr2 - 65536;//计算汉字的编码 
 
                 if (charCode > -10254 || charCode < -20319)  //如果不在汉字编码范围内则不改变 
                 {
@@ -122,9 +117,7 @@ namespace Easy.Common
 
         public static long ToLong(this string input)
         {
-            long result = 0;
-
-            long.TryParse(input, out result);
+            long.TryParse(input, out long result);
 
             return result;
         }
@@ -146,6 +139,67 @@ namespace Easy.Common
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 压缩字符串
+        /// </summary>
+        /// <param name="strUncompressed">未压缩的字符串</param>
+        /// <returns>压缩的字符串</returns>
+        public static string StringCompress(this string strUncompressed)
+        {
+            if (string.IsNullOrWhiteSpace(strUncompressed))
+            {
+                return string.Empty;
+            }
+
+            byte[] bytData = Encoding.Unicode.GetBytes(strUncompressed);
+
+            MemoryStream ms = new MemoryStream();
+            Stream stream = new GZipStream(ms, CompressionMode.Compress);
+            stream.Write(bytData, 0, bytData.Length);
+            stream.Close();
+
+            byte[] dataCompressed = ms.ToArray();
+            return Convert.ToBase64String(dataCompressed, 0, dataCompressed.Length);
+        }
+
+        /// <summary>
+        /// 解压缩字符串
+        /// </summary>
+        /// <param name="strCompressed">压缩的字符串</param>
+        /// <returns>未压缩的字符串</returns>
+        public static string StringDeCompress(this string strCompressed)
+        {
+            if (string.IsNullOrWhiteSpace(strCompressed))
+            {
+                return string.Empty;
+            }
+
+            int totalLength = 0;
+            var strUncompressed = new StringBuilder();
+
+            byte[] bInput = Convert.FromBase64String(strCompressed); ;
+            byte[] dataWrite = new byte[4096];
+            Stream stream = new GZipStream(new MemoryStream(bInput), CompressionMode.Decompress);
+
+            while (true)
+            {
+                int size = stream.Read(dataWrite, 0, dataWrite.Length);
+                if (size > 0)
+                {
+                    totalLength += size;
+                    strUncompressed.Append(Encoding.Unicode.GetString(dataWrite, 0, size));
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            stream.Close();
+
+            return strUncompressed.ToString();
         }
 
         private static string ComputeHash(byte[] pwd, HashAlgorithm hash)
