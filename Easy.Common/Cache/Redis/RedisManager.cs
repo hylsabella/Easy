@@ -8,8 +8,8 @@ namespace Easy.Common.Cache.Redis
 {
     public static class RedisManager
     {
-        private static object _lockerConn = new object();
-        private static object _lockerServer = new object();
+        private static readonly object _lockerConn = new object();
+        private static readonly object _lockerServer = new object();
         private static ConnectionMultiplexer _redis;
         private static IServer _server;
 
@@ -60,10 +60,7 @@ namespace Easy.Common.Cache.Redis
 
                                 _redis = ConnectionMultiplexer.Connect(configOptions);
 
-                                if (!_redis.IsConnected)
-                                {
-                                    throw new ArgumentException("连接Redis服务器失败！");
-                                }
+                                if (!_redis.IsConnected) throw new ArgumentException("连接Redis服务器失败！");
                             }
                             catch (Exception)
                             {

@@ -24,7 +24,7 @@ namespace Easy.Common.Cache.Redis
         /// <summary>
         /// redis服务器集合
         /// </summary>
-        private ConnectionMultiplexer[] redisServerList;
+        private readonly ConnectionMultiplexer[] redisServerList;
 
         /// <summary>
         /// 获得锁的临界值：投票半数则通过

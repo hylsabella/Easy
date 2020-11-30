@@ -63,6 +63,10 @@ namespace Easy.Common.Cache.Redis
             catch (Exception ex)
             {
                 logger.Error(ex, "Remove.RedisCache挂了");
+
+                var memoryCache = new EasyMemoryCache();
+
+                memoryCache.Remove(key);
             }
         }
 

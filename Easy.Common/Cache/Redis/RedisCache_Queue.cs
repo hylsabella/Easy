@@ -50,7 +50,7 @@ namespace Easy.Common.Cache.Redis
 
                 if (value == RedisValue.Null)
                 {
-                    return default(T);
+                    return default;
                 }
 
                 return JsonConvert.DeserializeObject<T>(value);
@@ -59,7 +59,7 @@ namespace Easy.Common.Cache.Redis
             {
                 logger.Error(ex, "QueuePop.RedisCache挂了");
 
-                return default(T);
+                return default;
             }
         }
 

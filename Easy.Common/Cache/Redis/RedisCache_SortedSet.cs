@@ -44,6 +44,30 @@ namespace Easy.Common.Cache.Redis
         }
 
         /// <summary>
+        /// 有序集合-返回有序集 key 中成员 member 的排名，如果成员不存在，那么返回null
+        /// </summary>
+        /// <param name="key">集合key</param>
+        /// <param name="member">成员</param>
+        /// <param name="isAsc">是否升序</param>
+        /// <returns>排名，1代表排名第一</returns>
+        public long? SortedSetRank(string key, string member, bool isAsc, int db = 0)
+        {
+            CheckHelper.NotEmpty(key, "key");
+            CheckHelper.NotEmpty(member, "member");
+
+            Order order = isAsc ? Order.Ascending : Order.Descending;
+
+            var redisdb = RedisManager.Connection.GetDatabase(db);
+
+            long? rank = redisdb.SortedSetRank(key, member, order);
+
+            //排名以 0 为底，也就是说， score 值最小的成员排名为 0，这里+1便于理解
+            rank = rank.HasValue ? rank + 1 : null;
+
+            return rank;
+        }
+
+        /// <summary>
         /// 有序集合-获取指定区间内的成员
         /// 下标参数 start 和 stop 都以 0 为底，包含 start 和 stop 在内，也就是说，以 0 表示有序集第一个成员，以 1 表示有序集第二个成员，以此类推。
         /// 你也可以使用负数下标，以 -1 表示最后一个成员， -2 表示倒数第二个成员，以此类推。
@@ -250,13 +274,8 @@ namespace Easy.Common.Cache.Redis
         public double SortedSetIncrement(string key, string member, double value, int db = 0)
         {
             CheckHelper.NotEmpty(key, "key");
-
             CheckHelper.NotEmpty(member, "member");
-
-            if (value <= 0)
-            {
-                throw new ArgumentNullException("value", "value只能为正数！");
-            }
+            if (value <= 0) throw new ArgumentNullException("value", "value只能为正数！");
 
             var redisdb = RedisManager.Connection.GetDatabase(db);
 
@@ -284,6 +303,37 @@ namespace Easy.Common.Cache.Redis
             var redisdb = RedisManager.Connection.GetDatabase(db);
 
             return redisdb.SortedSetDecrement(key, member, value);
+        }
+
+        /// <summary>
+        /// 从有序集合中弹出指定数量的成员
+        /// </summary>
+        /// <param name="key">集合key</param>
+        /// <param name="isAsc">是否升序</param>
+        /// <param name="count">指定弹出数量</param>
+        /// <returns>成员集合</returns>
+        public Dictionary<string, double> SortedSetPop(string key, bool isAsc, long count = 1, int db = 0)
+        {
+            CheckHelper.NotEmpty(key, "key");
+            if (count <= 0) throw new ArgumentNullException("count", "count必须大于0！");
+
+            var redisdb = RedisManager.Connection.GetDatabase(db);
+
+            SortedSetEntry[] entrys = redisdb.SortedSetPop(key, count, isAsc ? Order.Ascending : Order.Descending);
+
+            if (entrys == null || entrys.Length <= 0)
+            {
+                return new Dictionary<string, double>();
+            }
+
+            var result = new Dictionary<string, double>();
+
+            foreach (SortedSetEntry entry in entrys)
+            {
+                result.Add(entry.Element, entry.Score);
+            }
+
+            return result;
         }
     }
 }
