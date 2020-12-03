@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Easy.Common.Extentions;
 using System;
-using System.Collections.Generic;
 
 namespace Easy.Common.MQ
 {
@@ -11,11 +10,6 @@ namespace Easy.Common.MQ
         {
             var allTypes = AppDomain.CurrentDomain.GetAllTypes();
 
-            Register<IMqConsumer>(allTypes, builder);
-        }
-
-        private static void Register<T>(IEnumerable<Type> allTypes, ContainerBuilder builder) where T : IMqConsumer
-        {
             foreach (Type type in allTypes)
             {
                 bool isSubClass = typeof(IMqConsumer).IsAssignableFrom(type);

@@ -23,7 +23,7 @@ namespace Easy.WebMvc
         /// </summary>
         public static AppStartup RegMvc(this AppStartup startup, Assembly assembly)
         {
-            if (EasyAutofac.Container != null) throw new Exception("注册MVC必须在初始化IOC容器【InitIoc】之前完成！");
+            if (EasyAutofac.Container != null) throw new Exception("注册MVC必须在初始化IOC容器【InitIoC】之前完成！");
 
             var builder = EasyAutofac.ContainerBuilder;
 
