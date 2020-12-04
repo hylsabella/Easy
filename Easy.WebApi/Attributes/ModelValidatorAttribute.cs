@@ -52,7 +52,9 @@ namespace Easy.WebApi.Attributes
                     break;
                 }
 
-                string errorMsg = string.IsNullOrWhiteSpace(firstError.ErrorMessage) ? firstError.Exception?.Message ?? "" : firstError.ErrorMessage;
+                string errorMsg = string.IsNullOrWhiteSpace(firstError.ErrorMessage) ?
+                       firstError.Exception?.Message ?? "" :
+                       firstError.ErrorMessage;
 
                 actionContext.Response = actionContext.Request.CreateResponse(new SysApiResult<string>()
                 {

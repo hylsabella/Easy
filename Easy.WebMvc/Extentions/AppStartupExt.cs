@@ -42,6 +42,7 @@ namespace Easy.WebMvc
             //Filter 先添加的先执行
             GlobalFilters.Filters.Add(new CompressAttribute());
             GlobalFilters.Filters.Add(new GlobalExceptionFilter());
+            GlobalFilters.Filters.Add(new ModelValidatorAttribute());
 
             //设置需要客户端验证和启用非介入式JavaScript
             HtmlHelper.ClientValidationEnabled = true;
