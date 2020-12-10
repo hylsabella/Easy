@@ -137,7 +137,7 @@ namespace Easy.Common.Startup
                 logger.Error(ex, "连接Redis服务器失败");
             }
 
-            EasyAutofac.ContainerBuilder.Register(c => redisCache).As<IEasyCache>().SingleInstance();
+            EasyAutofac.ContainerBuilder.Register(c => redisCache).As<IEasyCache>().PropertiesAutowired().SingleInstance();
 
             return startup;
         }

@@ -30,7 +30,7 @@ namespace Easy.WebMvc.Attributes
 
             var currController = actionContext.Controller as BaseController;
 
-            if (!currController.ModelState.IsValid)
+            if (currController?.ModelState?.IsValid == false)
             {
                 ModelError firstError = new ModelError("未知错误");
 
