@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Easy.Common.Extentions
 {
@@ -10,14 +6,14 @@ namespace Easy.Common.Extentions
     {
         public static long GetTimeStamp(this DateTime target, int year = 1970, int month = 1, int day = 1)
         {
-            DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(year, month, day));
+            DateTime startTime = TimeZoneInfo.ConvertTime(new DateTime(year, month, day), TimeZoneInfo.Local);
 
             return Convert.ToInt64((target - startTime).TotalMilliseconds);
         }
 
         public static DateTime GetTimeByTimeStamp(this long timeStamp)
         {
-            DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            DateTime dtStart = TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1), TimeZoneInfo.Local);
 
             DateTime result = dtStart.AddSeconds(timeStamp);
 
@@ -33,11 +29,37 @@ namespace Easy.Common.Extentions
         }
 
         /// <summary>
-        /// yyyy-MM-dd hh:mm:ss
+        /// MM-dd hh:mm:ss
+        /// </summary>
+        public static string ToShortTime(this DateTime? dt)
+        {
+            if (dt == null)
+            {
+                return string.Empty;
+            }
+
+            return dt.Value.ToString("MM-dd HH:mm:ss");
+        }
+
+        /// <summary>
+        /// yyyy-MM-dd HH:mm:ss
         /// </summary>
         public static string ToLongTime(this DateTime dt)
         {
             return dt.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
+        /// <summary>
+        /// yyyy-MM-dd HH:mm:ss
+        /// </summary>
+        public static string ToLongTime(this DateTime? dt)
+        {
+            if (dt == null)
+            {
+                return string.Empty;
+            }
+
+            return dt.Value.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         /// <summary>
@@ -46,6 +68,19 @@ namespace Easy.Common.Extentions
         public static string ToDate(this DateTime dt)
         {
             return dt.ToString("yyyy-MM-dd");
+        }
+
+        /// <summary>
+        /// yyyy-MM-dd
+        /// </summary>
+        public static string ToDate(this DateTime? dt)
+        {
+            if (dt == null)
+            {
+                return string.Empty;
+            }
+
+            return dt.Value.ToString("yyyy-MM-dd");
         }
 
         /// <summary>
@@ -77,7 +112,6 @@ namespace Easy.Common.Extentions
             if (ts.Seconds > 0 && timeCount < 2)
             {
                 result += $"{ts.Seconds}秒";
-                timeCount++;
             }
 
             if (DateTime.Now > dt)
