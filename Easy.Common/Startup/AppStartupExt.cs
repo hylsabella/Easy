@@ -129,8 +129,8 @@ namespace Easy.Common.Startup
 
             try
             {
-                //测试redis是否连接成功
-                var dataBase = RedisManager.Connection.GetDatabase(0);
+                //测试Redis是否连接成功
+                RedisManager.Connection.GetDatabase(0);
             }
             catch (Exception ex)
             {
@@ -142,11 +142,11 @@ namespace Easy.Common.Startup
             return startup;
         }
 
-        public static AppStartup UseNLog(this AppStartup startup, string configFilePath)
+        public static AppStartup UseNLog(this AppStartup startup, string nlogFilePath)
         {
-            if (!File.Exists(configFilePath)) throw new FileNotFoundException("未找到nlog配置文件");
+            if (!File.Exists(nlogFilePath)) throw new FileNotFoundException("未找到nlog配置文件");
 
-            LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(configFilePath);
+            LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(nlogFilePath);
 
             return startup;
         }
