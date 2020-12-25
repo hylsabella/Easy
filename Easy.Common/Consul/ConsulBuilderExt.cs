@@ -12,7 +12,6 @@ namespace Easy.Common.Consul
             if (string.IsNullOrWhiteSpace(consulOption.RegId) ||
                 string.IsNullOrWhiteSpace(consulOption.ServiceName) ||
                 string.IsNullOrWhiteSpace(consulOption.ServiceIP) ||
-                string.IsNullOrWhiteSpace(consulOption.ServiceHealthCheck) ||
                 string.IsNullOrWhiteSpace(consulOption.ConsulAddress) ||
                 consulOption.ServicePort <= 0)
             {
