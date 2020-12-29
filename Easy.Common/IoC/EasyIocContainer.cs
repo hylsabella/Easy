@@ -1,6 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Autofac;
 using CommonServiceLocator;
+using Easy.Common.IoC.Autofac;
+using System;
+using System.Collections.Generic;
 
 namespace Easy.Common.IoC
 {
@@ -59,6 +61,36 @@ namespace Easy.Common.IoC
         public static object GetService(Type serviceType)
         {
             return Container.GetService(serviceType);
+        }
+
+        public static bool IsRegistered<TService>()
+        {
+            return EasyAutofac.Container.IsRegistered<TService>();
+        }
+
+        public static bool IsRegistered(Type serviceType)
+        {
+            return EasyAutofac.Container.IsRegistered(serviceType);
+        }
+
+        public static bool IsRegisteredWithKey<TService>(object serviceKey)
+        {
+            return EasyAutofac.Container.IsRegisteredWithKey<TService>(serviceKey);
+        }
+
+        public static bool IsRegisteredWithKey(object serviceKey, Type serviceType)
+        {
+            return EasyAutofac.Container.IsRegisteredWithKey(serviceKey, serviceType);
+        }
+
+        public static bool IsRegisteredWithName(string serviceName, Type serviceType)
+        {
+            return EasyAutofac.Container.IsRegisteredWithName(serviceName, serviceType);
+        }
+
+        public static bool IsRegisteredWithName<TService>(string serviceName)
+        {
+            return EasyAutofac.Container.IsRegisteredWithName<TService>(serviceName);
         }
     }
 }
