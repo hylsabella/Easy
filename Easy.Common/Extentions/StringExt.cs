@@ -141,6 +141,26 @@ namespace Easy.Common
             return result;
         }
 
+        public static string UrlDecode(this string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return string.Empty;
+            }
+
+            return HttpUtility.UrlDecode(input);
+        }
+
+        public static string UrlEncode(this string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return string.Empty;
+            }
+
+            return HttpUtility.UrlEncode(input);
+        }
+
         /// <summary>
         /// 压缩字符串
         /// </summary>

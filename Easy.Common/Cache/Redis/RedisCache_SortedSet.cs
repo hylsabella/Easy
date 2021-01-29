@@ -87,7 +87,7 @@ namespace Easy.Common.Cache.Redis
 
             if (values == null || values.Length <= 0)
             {
-                return new string[] { };
+                return Array.Empty<string>();
             }
 
             var result = new List<string>();
@@ -152,7 +152,7 @@ namespace Easy.Common.Cache.Redis
 
             if (values == null || values.Length <= 0)
             {
-                return new string[] { };
+                return Array.Empty<string>();
             }
 
             var result = new List<string>();
@@ -275,7 +275,7 @@ namespace Easy.Common.Cache.Redis
         {
             CheckHelper.NotEmpty(key, "key");
             CheckHelper.NotEmpty(member, "member");
-            if (value <= 0) throw new ArgumentNullException("value", "value只能为正数！");
+            if (value <= 0) throw new ArgumentNullException(nameof(value), "value只能为正数！");
 
             var redisdb = RedisManager.Connection.GetDatabase(db);
 
@@ -295,10 +295,7 @@ namespace Easy.Common.Cache.Redis
 
             CheckHelper.NotEmpty(member, "member");
 
-            if (value <= 0)
-            {
-                throw new ArgumentNullException("value", "value只能为正数！");
-            }
+            if (value <= 0) throw new ArgumentNullException(nameof(value), "value只能为正数！");
 
             var redisdb = RedisManager.Connection.GetDatabase(db);
 
@@ -315,7 +312,7 @@ namespace Easy.Common.Cache.Redis
         public Dictionary<string, double> SortedSetPop(string key, bool isAsc, long count = 1, int db = 0)
         {
             CheckHelper.NotEmpty(key, "key");
-            if (count <= 0) throw new ArgumentNullException("count", "count必须大于0！");
+            if (count <= 0) throw new ArgumentNullException(nameof(count), "count必须大于0！");
 
             var redisdb = RedisManager.Connection.GetDatabase(db);
 

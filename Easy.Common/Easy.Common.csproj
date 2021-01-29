@@ -244,6 +244,9 @@
     <Compile Include="Helpers\BankCardHelper.cs" />
     <Compile Include="Helpers\BitmapHelper.cs" />
     <Compile Include="Helpers\EnvironmentHelper.cs" />
+    <Compile Include="Helpers\IdentityCardHelper.cs" />
+    <Compile Include="Helpers\IPHelper.cs" />
+    <Compile Include="Helpers\IPSearch.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\OrderNoHelper.cs" />
     <Compile Include="Helpers\RandomHelper.cs" />
@@ -340,6 +343,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="Assets\qqzeng-ip-utf8.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
