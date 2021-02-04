@@ -130,6 +130,20 @@ namespace Easy.Common
             return result;
         }
 
+        public static string DecodeBase64String(this string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return string.Empty;
+            }
+
+            byte[] buffer = Convert.FromBase64String(input);
+
+            string source = Encoding.UTF8.GetString(buffer);
+
+            return source;
+        }
+
         public static long ToLong(this string input)
         {
             long.TryParse(input, out long result);
