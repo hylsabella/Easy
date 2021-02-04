@@ -130,6 +130,20 @@ namespace Easy.Common
             return result;
         }
 
+        public static string ToBase64String(this string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return string.Empty;
+            }
+
+            byte[] buffer = Encoding.UTF8.GetBytes(input);
+
+            string result = Convert.ToBase64String(buffer);
+
+            return result;
+        }
+
         public static string DecodeBase64String(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -139,9 +153,9 @@ namespace Easy.Common
 
             byte[] buffer = Convert.FromBase64String(input);
 
-            string source = Encoding.UTF8.GetString(buffer);
+            string result = Encoding.UTF8.GetString(buffer);
 
-            return source;
+            return result;
         }
 
         public static long ToLong(this string input)
