@@ -109,10 +109,53 @@ namespace Easy.Common
                 return input;
             }
 
-            byte[] pwd = Encoding.UTF8.GetBytes(input);
+            byte[] sourceBytes = Encoding.UTF8.GetBytes(input);
             HashAlgorithm sha256 = new SHA256CryptoServiceProvider();
 
-            return ComputeHash(pwd, sha256);
+            return ComputeHash(sourceBytes, sha256);
+        }
+
+        public static string ToSHA1(this string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return input;
+            }
+
+            byte[] sourceBytes = Encoding.UTF8.GetBytes(input);
+            SHA1 sha1Hash = SHA1.Create();
+
+            string result = ComputeHash(sourceBytes, sha1Hash).Replace("-", string.Empty);
+
+            return result;
+        }
+
+        public static string ToBase64String(this string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return string.Empty;
+            }
+
+            byte[] buffer = Encoding.UTF8.GetBytes(input);
+
+            string result = Convert.ToBase64String(buffer);
+
+            return result;
+        }
+
+        public static string DecodeBase64String(this string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return string.Empty;
+            }
+
+            byte[] buffer = Convert.FromBase64String(input);
+
+            string result = Encoding.UTF8.GetString(buffer);
+
+            return result;
         }
 
         public static long ToLong(this string input)
@@ -139,6 +182,26 @@ namespace Easy.Common
             }
 
             return result;
+        }
+
+        public static string UrlDecode(this string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return string.Empty;
+            }
+
+            return HttpUtility.UrlDecode(input);
+        }
+
+        public static string UrlEncode(this string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return string.Empty;
+            }
+
+            return HttpUtility.UrlEncode(input);
         }
 
         /// <summary>

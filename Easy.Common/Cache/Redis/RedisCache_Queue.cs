@@ -8,63 +8,63 @@ namespace Easy.Common.Cache.Redis
     public partial class RedisCache : IEasyCache
     {
         /// <summary>
-        /// 入队列
+        /// 入队列（非阻塞）
         /// </summary>
         public long QueuePush<T>(string queueName, T data, int db = 0)
         {
             CheckHelper.NotEmpty(queueName, "queueName");
+            if (data == null) throw new ArgumentNullException(nameof(data), "不能向redis队列插入空数据");
 
-            if (data == null)
-            {
-                throw new ArgumentNullException("data", "不能向redis队列插入空数据");
-            }
+            var redisdb = RedisManager.Connection.GetDatabase(db);
 
-            try
-            {
-                var redisdb = RedisManager.Connection.GetDatabase(db);
+            string jsonData = JsonConvert.SerializeObject(data);
 
-                string jsonData = JsonConvert.SerializeObject(data);
-
-                return redisdb.ListRightPush(queueName, jsonData);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "QueuePush.RedisCache挂了");
-
-                return 0;
-            }
+            return redisdb.ListLeftPush(queueName, jsonData);
         }
 
         /// <summary>
-        /// 出队列（保证数据只会被一个消费者消费）
+        /// 出队列（非阻塞）【保证数据只会被一个消费者消费】
         /// </summary>
         public T QueuePop<T>(string queueName, int db = 0)
         {
             CheckHelper.NotEmpty(queueName, "queueName");
 
-            try
+            var redisdb = RedisManager.Connection.GetDatabase(db);
+
+            var value = redisdb.ListRightPop(queueName);
+
+            if (value == RedisValue.Null)
             {
-                var redisdb = RedisManager.Connection.GetDatabase(db);
-
-                var value = redisdb.ListLeftPop(queueName);
-
-                if (value == RedisValue.Null)
-                {
-                    return default;
-                }
-
-                return JsonConvert.DeserializeObject<T>(value);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "QueuePop.RedisCache挂了");
-
                 return default;
             }
+
+            return JsonConvert.DeserializeObject<T>(value);
         }
 
         /// <summary>
-        /// 返回列表 key 中指定区间内的元素，区间以偏移量 start 和 stop 指定。
+        /// 在一个原子时间内，执行以下两个动作：QueuePush和QueuePop
+        /// </summary>
+        /// <param name="queueName_1nd">QueuePush的队列</param>
+        /// <param name="queueName_2nd">QueuePop的队列</param>
+        public T QueuePop1ndAndQueuePush2nd<T>(string queueName_1nd, string queueName_2nd, int db = 0)
+        {
+            CheckHelper.NotEmpty(queueName_1nd, "queueName_1nd");
+            CheckHelper.NotEmpty(queueName_2nd, "queueName_2nd");
+
+            var redisdb = RedisManager.Connection.GetDatabase(db);
+
+            var value = redisdb.ListRightPopLeftPush(queueName_1nd, queueName_2nd);
+
+            if (value == RedisValue.Null)
+            {
+                return default;
+            }
+
+            return JsonConvert.DeserializeObject<T>(value);
+        }
+
+        /// <summary>
+        /// 返回列表 key 中指定区间内的元素（不从队列中移除成员），区间以偏移量 start 和 stop 指定。
         /// </summary>
         public List<T> LListRange<T>(string queueName, long start = 0, long stop = -1, int db = 0)
         {
@@ -72,22 +72,15 @@ namespace Easy.Common.Cache.Redis
 
             var result = new List<T>();
 
-            try
+            var redisdb = RedisManager.Connection.GetDatabase(db);
+
+            var redisValues = redisdb.ListRange(queueName, start, stop);
+
+            foreach (var redisValue in redisValues)
             {
-                var redisdb = RedisManager.Connection.GetDatabase(db);
+                var value = JsonConvert.DeserializeObject<T>(redisValue);
 
-                var redisValues = redisdb.ListRange(queueName, start, stop);
-
-                foreach (var redisValue in redisValues)
-                {
-                    var value = JsonConvert.DeserializeObject<T>(redisValue);
-
-                    result.Add(value);
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "LListRange.RedisCache挂了");
+                result.Add(value);
             }
 
             return result;
@@ -100,16 +93,9 @@ namespace Easy.Common.Cache.Redis
         {
             CheckHelper.NotEmpty(queueName, "queueName");
 
-            try
-            {
-                var redisdb = RedisManager.Connection.GetDatabase(db);
+            var redisdb = RedisManager.Connection.GetDatabase(db);
 
-                redisdb.ListTrim(queueName, start, stop);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "LListTrim.RedisCache挂了");
-            }
+            redisdb.ListTrim(queueName, start, stop);
         }
 
         /// <summary>

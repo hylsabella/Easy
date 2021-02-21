@@ -1,6 +1,5 @@
 ﻿using Easy.Common.Cache;
 using Easy.Common.Enums;
-using Easy.Common.Helpers;
 using Easy.Common.Setting;
 using JWT.Algorithms;
 using JWT.Builder;
@@ -24,7 +23,7 @@ namespace Easy.Common.Security
         /// <summary>
         /// 生成新Token
         /// </summary>
-        private string CreateNewToken(TokenModel model)
+        public string CreateNewToken(TokenModel model)
         {
             CheckHelper.NotNull(model, "model");
             CheckHelper.NotEmpty(model.UserName, "model.UserName");
@@ -68,11 +67,9 @@ namespace Easy.Common.Security
             }
             catch (TokenExpiredException)
             {
-
             }
             catch (SignatureVerificationException)
             {
-
             }
 
             return tokenModel;
@@ -85,19 +82,22 @@ namespace Easy.Common.Security
         /// <param name="userName">用户名</param>
         /// <param name="deviceType">平台</param>
         /// <param name="isAdmin">是否是管理员</param>
+        /// <param name="tokenExpireTime">token过期时间</param>
         /// <returns>新的用户token</returns>
-        public string 更新用户Token(int userId, string userName, DeviceType deviceType, bool isAdmin)
+        public string 更新用户Token(int userId, string userName, DeviceType deviceType, bool isAdmin, TimeSpan? tokenExpireTime = null)
         {
+            var expire = tokenExpireTime ?? this._tokenExpiresTimeSpan;
+
             string newToken = CreateNewToken(new TokenModel
             {
                 UserId = userId,
                 UserName = userName,
-                TokenExpireTime = DateTime.Now.Add(this._tokenExpiresTimeSpan),
+                TokenExpireTime = DateTime.Now.Add(expire),
             });
 
             string tokenCacheKey = CommonCacheKeys.Build_UserToken_Key(userId, deviceType, isAdmin);
 
-            this._easyCache.Set(tokenCacheKey, newToken, this._tokenExpiresTimeSpan);
+            this._easyCache.Set(tokenCacheKey, newToken, expire);
 
             return newToken;
         }

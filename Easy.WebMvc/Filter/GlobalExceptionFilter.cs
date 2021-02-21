@@ -14,7 +14,7 @@ namespace Easy.WebMvc.Filter
     public class GlobalExceptionFilter : FilterAttribute, IExceptionFilter
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        private static string _errorRedirect = ConfigurationManager.AppSettings["ErrorRedirect"] ?? "/statics/error.html";
+        private static string _errorRedirect = ConfigurationManager.AppSettings["ErrorRedirect"];
 
         public void OnException(ExceptionContext actionExecutedContext)
         {
@@ -47,11 +47,11 @@ namespace Easy.WebMvc.Filter
             {
                 if (actionExecutedContext.HttpContext.Request.HttpMethod.ToLower() == "get")
                 {
-                    actionExecutedContext.Result = new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    actionExecutedContext.Result = new JsonNetResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
                 else
                 {
-                    actionExecutedContext.Result = new JsonResult { Data = result };
+                    actionExecutedContext.Result = new JsonNetResult { Data = result };
                 }
             }
             else
@@ -67,7 +67,7 @@ namespace Easy.WebMvc.Filter
                 }
                 else
                 {
-                    actionExecutedContext.Result = new JsonResult { Data = result };
+                    actionExecutedContext.Result = new JsonNetResult { Data = result };
                 }
             }
         }

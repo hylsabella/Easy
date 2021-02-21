@@ -7,7 +7,7 @@ namespace Easy.Common.Cache
 {
     public class EasyMemoryCache
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private static readonly MemoryCache _memoryCache = new MemoryCache(new MemoryCacheOptions());
 
         public TimeSpan Expires { get; }

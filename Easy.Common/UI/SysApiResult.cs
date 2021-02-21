@@ -17,7 +17,7 @@ namespace Easy.Common.UI
         public TResult Result { get; set; }
 
         public SysApiResult()
-            : this(SysApiStatus.成功, default(TResult), string.Empty)
+            : this(SysApiStatus.成功, default, string.Empty)
         {
         }
 

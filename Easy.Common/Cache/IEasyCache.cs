@@ -51,31 +51,6 @@ namespace Easy.Common.Cache
         bool Set<T>(string key, T data, TimeSpan expires, int db = 0);
 
         /// <summary>
-        /// 入队列
-        /// </summary>
-        long QueuePush<T>(string queueName, T data, int db = 0);
-
-        /// <summary>
-        /// 出队列（保证数据只会被一个消费者消费）
-        /// </summary>
-        T QueuePop<T>(string queueName, int db = 0);
-
-        /// <summary>
-        /// 返回列表 key 中指定区间内的元素，区间以偏移量 start 和 stop 指定。
-        /// </summary>
-        List<T> LListRange<T>(string queueName, long start = 0, long stop = -1, int db = 0);
-
-        /// <summary>
-        /// 对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。
-        /// </summary>
-        void LListTrim(string queueName, long start = 0, long stop = -1, int db = 0);
-
-        /// <summary>
-        /// 从队列中取出并移除指定范围内的元素（不保证数据只会被一个消费者消费）
-        /// </summary>
-        List<T> QueuePopList<T>(string queueName, long stop = -1, int db = 0);
-
-        /// <summary>
         /// 增加值
         /// </summary>
         /// <param name="key">缓存Key</param>
@@ -92,6 +67,40 @@ namespace Easy.Common.Cache
         /// <param name="expires">过期时间。【null】和【TimeSpan.Zero】表示不会过期</param>
         /// <returns>减少后的值</returns>
         long Decrement(string key, long value = 1, TimeSpan? expires = null, int db = 0);
+
+
+        /// <summary>
+        /// 入队列
+        /// </summary>
+        long QueuePush<T>(string queueName, T data, int db = 0);
+
+        /// <summary>
+        /// 出队列（保证数据只会被一个消费者消费）
+        /// </summary>
+        T QueuePop<T>(string queueName, int db = 0);
+
+        /// <summary>
+        /// 在一个原子时间内，执行以下两个动作：QueuePush和QueuePop
+        /// </summary>
+        /// <param name="queueName_1nd">QueuePush的队列</param>
+        /// <param name="queueName_2nd">QueuePop的队列</param>
+        T QueuePop1ndAndQueuePush2nd<T>(string queueName_1nd, string queueName_2nd, int db = 0);
+
+        /// <summary>
+        /// 返回列表 key 中指定区间内的元素，区间以偏移量 start 和 stop 指定。
+        /// </summary>
+        List<T> LListRange<T>(string queueName, long start = 0, long stop = -1, int db = 0);
+
+        /// <summary>
+        /// 对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。
+        /// </summary>
+        void LListTrim(string queueName, long start = 0, long stop = -1, int db = 0);
+
+        /// <summary>
+        /// 从队列中取出并移除指定范围内的元素（不保证数据只会被一个消费者消费）
+        /// </summary>
+        List<T> QueuePopList<T>(string queueName, long stop = -1, int db = 0);
+
 
         /// <summary>
         /// 哈希获取值
@@ -123,6 +132,7 @@ namespace Easy.Common.Cache
         /// <param name="value">值</param>
         /// <param name="expires">过期时间.null和TimeSpan.Zero：表示不会过期</param>
         bool HashSet(string key, string hashField, string value, TimeSpan? expires = null, int db = 0);
+
 
         /// <summary>
         /// 集合-添加成员
@@ -178,6 +188,7 @@ namespace Easy.Common.Cache
         /// <param name="db">数据库编号</param>
         bool IsInSet(string key, string memberValue, int db = 0);
 
+
         /// <summary>
         /// 有序集合-添加成员
         /// （如果某个【member】已经是有序集的成员，那么更新这个【member】的【score】值，并通过重新插入这个【member】成员，来保证该【member】在正确的位置上。）
@@ -194,6 +205,15 @@ namespace Easy.Common.Cache
         /// <param name="memberValue">成员值</param>
         /// <returns>分数</returns>
         double? GetSortedSetScore(string key, string memberValue, int db = 0);
+
+        /// <summary>
+        /// 有序集合-返回有序集 key 中成员 member 的排名，如果成员不存在，那么返回null
+        /// </summary>
+        /// <param name="key">集合key</param>
+        /// <param name="member">成员</param>
+        /// <param name="isAsc">是否升序</param>
+        /// <returns>排名，1代表排名第一</returns>
+        long? SortedSetRank(string key, string member, bool isAsc, int db = 0);
 
         /// <summary>
         /// 有序集合-获取指定区间内的成员
@@ -287,6 +307,16 @@ namespace Easy.Common.Cache
         /// <param name="value">减量</param>
         /// <returns>减掉后的分数</returns>
         double SortedSetDecrement(string key, string member, double value, int db = 0);
+
+        /// <summary>
+        /// 从有序集合中弹出指定数量的成员
+        /// </summary>
+        /// <param name="key">集合key</param>
+        /// <param name="isAsc">是否升序</param>
+        /// <param name="count">指定弹出数量</param>
+        /// <returns>成员集合</returns>
+        Dictionary<string, double> SortedSetPop(string key, bool isAsc, long count = 1, int db = 0);
+
 
         /// <summary>
         /// 判断指定Key是否存在
