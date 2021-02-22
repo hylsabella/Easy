@@ -10,13 +10,13 @@ namespace Easy.Common.IoC.Autofac
 {
     public class EasyAutofac
     {
-        private static object _lock = new object();
         private static IServiceLocator _serviceLocator;
         public static IContainer Container { get; private set; }
         public static ContainerBuilder ContainerBuilder { get; } = new ContainerBuilder();
 
         [ImportMany]
         private IEnumerable<IAutofacRegistrar> _autofacRegList = null;
+        private static object _lock = new object();
 
         public EasyAutofac(bool hasExtraIocReg)
         {
@@ -37,7 +37,10 @@ namespace Easy.Common.IoC.Autofac
             }
         }
 
-        public IServiceLocator GetServiceLocator()
+        /// <summary>
+        /// 获取IServiceLocator（重复调用最多只会执行一次Build操作）
+        /// </summary>
+        public IServiceLocator BuildServiceLocator()
         {
             if (_serviceLocator == null)
             {
