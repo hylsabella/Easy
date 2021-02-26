@@ -45,7 +45,7 @@ namespace Easy.Common.MQ.RabbitMQ
 
                                 if (isEncryption)
                                 {
-                                    password = EncryptionHelper.DES解密(password, SecretKeySetting.PlatformDESKey);
+                                    password = EncryptionHelper.DES解密(password, SecretKeySetting.DES_SecretKey);
                                 }
 
                                 var factory = new ConnectionFactory

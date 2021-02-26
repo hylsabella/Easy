@@ -47,7 +47,7 @@ namespace Easy.Common.Cache.Redis
 
                                 if (isEncryption)
                                 {
-                                    string pwd = EncryptionHelper.DES解密(password, SecretKeySetting.PlatformDESKey);
+                                    string pwd = EncryptionHelper.DES解密(password, SecretKeySetting.DES_SecretKey);
 
                                     configOptions.Password = pwd;
                                 }
