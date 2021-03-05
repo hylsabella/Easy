@@ -240,6 +240,7 @@
     <Compile Include="Enums\NetType.cs" />
     <Compile Include="Enums\WebType.cs" />
     <Compile Include="Extentions\AppDomainExt.cs" />
+    <Compile Include="Extentions\DictionaryExt.cs" />
     <Compile Include="Extentions\HttpRequestBaseExt.cs" />
     <Compile Include="Helpers\BankCardHelper.cs" />
     <Compile Include="Helpers\BitmapHelper.cs" />
