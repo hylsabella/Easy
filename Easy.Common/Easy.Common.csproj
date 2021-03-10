@@ -245,6 +245,7 @@
     <Compile Include="Extentions\AppDomainExt.cs" />
     <Compile Include="Extentions\DictionaryExt.cs" />
     <Compile Include="Extentions\HttpRequestBaseExt.cs" />
+    <Compile Include="Helpers\AesGcmSvc.cs" />
     <Compile Include="Helpers\BankCardHelper.cs" />
     <Compile Include="Helpers\BitmapHelper.cs" />
     <Compile Include="Helpers\EnvironmentHelper.cs" />

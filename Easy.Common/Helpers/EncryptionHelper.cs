@@ -1,7 +1,4 @@
-﻿using Org.BouncyCastle.Crypto.Engines;
-using Org.BouncyCastle.Crypto.Modes;
-using Org.BouncyCastle.Crypto.Parameters;
-using System;
+﻿using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -432,60 +429,6 @@ namespace Easy.Common.Helpers
                     return Encoding.UTF8.GetString(resultArray);
                 }
             }
-        }
-
-        public static string AesGcm加密(string PlainText, byte[] key, byte[] iv)
-        {
-            string sR = string.Empty;
-            try
-            {
-                byte[] plainBytes = Encoding.UTF8.GetBytes(PlainText);
-
-                GcmBlockCipher cipher = new GcmBlockCipher(new AesFastEngine());
-                AeadParameters parameters = new AeadParameters(new KeyParameter(key), 128, iv, null);
-
-                cipher.Init(true, parameters);
-
-                byte[] encryptedBytes = new byte[cipher.GetOutputSize(plainBytes.Length)];
-                Int32 retLen = cipher.ProcessBytes(plainBytes, 0, plainBytes.Length, encryptedBytes, 0);
-                cipher.DoFinal(encryptedBytes, retLen);
-                sR = Convert.ToBase64String(encryptedBytes, Base64FormattingOptions.None);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-            }
-
-            return sR;
-        }
-
-
-        public static string AesGcm解密(string EncryptedText, byte[] key, byte[] iv)
-        {
-            string sR = string.Empty;
-            try
-            {
-                byte[] encryptedBytes = Convert.FromBase64String(EncryptedText);
-
-                GcmBlockCipher cipher = new GcmBlockCipher(new AesFastEngine());
-                AeadParameters parameters = new AeadParameters(new KeyParameter(key), 128, iv, null);
-                //ParametersWithIV parameters = new ParametersWithIV(new KeyParameter(key), iv);
-
-                cipher.Init(false, parameters);
-                byte[] plainBytes = new byte[cipher.GetOutputSize(encryptedBytes.Length)];
-                Int32 retLen = cipher.ProcessBytes(encryptedBytes, 0, encryptedBytes.Length, plainBytes, 0);
-                cipher.DoFinal(plainBytes, retLen);
-
-                sR = Encoding.UTF8.GetString(plainBytes).TrimEnd("\r\n\0".ToCharArray());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-            }
-
-            return sR;
         }
 
         #endregion
