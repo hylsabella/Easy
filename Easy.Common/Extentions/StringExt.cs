@@ -115,6 +115,21 @@ namespace Easy.Common
             return ComputeHash(sourceBytes, sha256);
         }
 
+
+        public static string ToSHA256Hash(this string str)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(str);
+            byte[] hash = SHA256Managed.Create().ComputeHash(bytes);
+
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                builder.Append(hash[i].ToString("x2"));
+            }
+
+            return builder.ToString();
+        }
+
         public static string ToSHA1(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -202,6 +217,22 @@ namespace Easy.Common
             }
 
             return HttpUtility.UrlEncode(input);
+        }
+
+        /// <summary>
+        /// 十六进制转二进制byte[]
+        /// </summary>
+        /// <param name="hexString"></param>
+        /// <returns></returns>
+        public static byte[] HexStrTobyte(this string hexString)
+        {
+            hexString = hexString.Replace(" ", "");
+            if ((hexString.Length % 2) != 0)
+                hexString += " ";
+            byte[] returnBytes = new byte[hexString.Length / 2];
+            for (int i = 0; i < returnBytes.Length; i++)
+                returnBytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2).Trim(), 16);
+            return returnBytes;
         }
 
         /// <summary>

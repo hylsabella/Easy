@@ -245,7 +245,7 @@
     <Compile Include="Extentions\AppDomainExt.cs" />
     <Compile Include="Extentions\DictionaryExt.cs" />
     <Compile Include="Extentions\HttpRequestBaseExt.cs" />
-    <Compile Include="Helpers\AesGcmSvc.cs" />
+    <Compile Include="Helpers\AesGcmHelper.cs" />
     <Compile Include="Helpers\BankCardHelper.cs" />
     <Compile Include="Helpers\BitmapHelper.cs" />
     <Compile Include="Helpers\EnvironmentHelper.cs" />
@@ -255,6 +255,7 @@
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\OrderNoHelper.cs" />
     <Compile Include="Helpers\RandomHelper.cs" />
+    <Compile Include="Helpers\RequestHepler.cs" />
     <Compile Include="Helpers\TableIdHelper.cs" />
     <Compile Include="Helpers\UserAgentHelper.cs" />
     <Compile Include="IoC\Autofac\AutofacRegistrar.cs" />
