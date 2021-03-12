@@ -11,9 +11,7 @@ namespace Easy.Common.Helpers
     /// <summary>
     /// Code taken from this Stack question: 
     /// http://codereview.stackexchange.com/questions/14892/review-of-simplified-secure-encryption-of-a-string
-    /// s
     /// The below code uses AES GCM using a 256bit key.
-    /// 
     /// A non secret payload byte[] can be provided as well that won't be encrypted but will be authenticated with GCM.
     /// </summary>
     public class AesGcmHelper
