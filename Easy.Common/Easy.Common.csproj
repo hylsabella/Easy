@@ -272,6 +272,7 @@
     <Compile Include="MQ\IMqEventBus.cs" />
     <Compile Include="MQ\IMqConsumer.cs" />
     <Compile Include="MQ\IMqConsumerBinder.cs" />
+    <Compile Include="MQ\MqExpiresInfo.cs" />
     <Compile Include="MQ\MqMessage.cs" />
     <Compile Include="MQ\MqConsumerAttribute.cs" />
     <Compile Include="MQ\MqConsumerDispatcher.cs" />
