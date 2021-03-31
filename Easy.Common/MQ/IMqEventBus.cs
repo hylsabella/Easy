@@ -17,8 +17,9 @@ namespace Easy.Common.MQ
         /// <param name="noAckEvent">投递队列不成功确认回调</param>
         /// <returns>是否成功投递到队列</returns>
         bool Publish<T>(string routingKey, MqMessage<T> message,
-           EventHandler<MqEventBusFeedBackEventArgs> ackEvent = null,
-           EventHandler<MqEventBusFeedBackEventArgs> noAckEvent = null);
+            EventHandler<MqEventBusFeedBackEventArgs> ackEvent = null,
+            EventHandler<MqEventBusFeedBackEventArgs> noAckEvent = null,
+            MqExpiresInfo mqExpiresInfo = null);
     }
 
     public class MqEventBusFeedBackEventArgs : EventArgs
