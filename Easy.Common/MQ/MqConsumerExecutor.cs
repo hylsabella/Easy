@@ -9,13 +9,13 @@ namespace Easy.Common.MQ
     /// </summary>
     public class MqConsumerExecutor
     {
-        public MqConsumerExecutor(string routeName, ushort prefetchCount, uint prefetchSize, bool autoAck, uint parallelNum, TypeInfo typeInfo, MethodInfo methodInfo, IList<ParameterDescriptor> parameters)
+        public MqConsumerExecutor(string routeName, ushort prefetchCount, uint prefetchSize, bool autoAck, uint parallelIndex, TypeInfo typeInfo, MethodInfo methodInfo, IList<ParameterDescriptor> parameters)
         {
             this.RouteName = routeName;
             this.PrefetchCount = prefetchCount;
             this.PrefetchSize = prefetchSize;
             this.AutoAck = autoAck;
-            this.ParallelNum = parallelNum;
+            this.ParallelIndex = parallelIndex;
             this.TypeInfo = typeInfo;
             this.MethodInfo = methodInfo;
             this.Parameters = parameters;
@@ -46,7 +46,7 @@ namespace Easy.Common.MQ
         /// <summary>
         /// 消费者并行数，默认为1（即：创建指定数目的相同消费者，解决消费吞吐量问题）
         /// </summary>
-        public uint ParallelNum { get; }
+        public uint ParallelIndex { get; }
 
         /// <summary>
         /// 消费者类型信息
@@ -86,7 +86,7 @@ namespace Easy.Common.MQ
             }
 
             return string.Equals(x.RouteName, y.RouteName) &&
-                                 x.ParallelNum == y.ParallelNum &&
+                                 x.ParallelIndex == y.ParallelIndex &&
                                  x.MethodInfo.Equals(y.MethodInfo) &&
                                  x.TypeInfo.Equals(y.TypeInfo);
         }
@@ -94,7 +94,7 @@ namespace Easy.Common.MQ
         public int GetHashCode(MqConsumerExecutor obj)
         {
             return obj.RouteName.GetHashCode() ^
-                   obj.ParallelNum.GetHashCode() ^
+                   obj.ParallelIndex.GetHashCode() ^
                    obj.MethodInfo.GetHashCode() ^
                    obj.TypeInfo.GetHashCode();
         }
