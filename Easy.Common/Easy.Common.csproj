@@ -252,6 +252,7 @@
     <Compile Include="Helpers\AesGcmHelper.cs" />
     <Compile Include="Helpers\BankCardHelper.cs" />
     <Compile Include="Helpers\BitmapHelper.cs" />
+    <Compile Include="Helpers\CallHelper.cs" />
     <Compile Include="Helpers\EnvironmentHelper.cs" />
     <Compile Include="Helpers\IdentityCardHelper.cs" />
     <Compile Include="Helpers\IPHelper.cs" />

@@ -7,6 +7,12 @@ namespace Easy.Common.MQ
     /// </summary>
     public class MqExpiresInfo
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="expires">过期时间</param>
+        /// <param name="expiresRoutingKey">过期后重新投递的路由值</param>
+        /// <param name="isSameExpires">是否所有消息过期时间一致。true：基于队列方式实现延迟队列。false：基于消息方式实现延迟队列。</param>
         public MqExpiresInfo(TimeSpan expires, string expiresRoutingKey, bool isSameExpires)
         {
             this.Expires = expires;
