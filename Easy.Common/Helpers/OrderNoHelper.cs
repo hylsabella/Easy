@@ -1,5 +1,4 @@
 ﻿using Easy.Common.Exceptions;
-using Easy.Common.Extentions;
 using System;
 
 namespace Easy.Common.Helpers

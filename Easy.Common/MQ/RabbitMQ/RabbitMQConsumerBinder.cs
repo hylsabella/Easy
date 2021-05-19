@@ -1,5 +1,4 @@
-﻿using Easy.Common.Extentions;
-using Easy.Common.Helpers;
+﻿using Easy.Common.Helpers;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;

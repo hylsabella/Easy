@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Linq;
 
-namespace Easy.Common.Extentions
+namespace Easy.Common
 {
     public static class AppDomainExt
     {

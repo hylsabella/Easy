@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Easy.Common.Extentions
+namespace Easy.Common
 {
     public static class DecimalExt
     {

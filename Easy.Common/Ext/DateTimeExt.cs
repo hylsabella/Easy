@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Easy.Common.Extentions
+namespace Easy.Common
 {
     public static class DateTimeExt
     {

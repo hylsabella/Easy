@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.ComponentModel;
 
-namespace Easy.Common.Extentions
+namespace Easy.Common
 {
     public static class EnumExt
     {

@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Easy.Common.Attributes;
-using Easy.Common.Extentions;
 using Easy.Common.Repository;
 using System;
 using System.Reflection;

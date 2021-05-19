@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Easy.Common.Extentions
+namespace Easy.Common
 {
     public static class SchedulerExt
     {

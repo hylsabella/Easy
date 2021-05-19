@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Easy.Common.Extentions;
 using System;
 
 namespace Easy.Common.MQ
