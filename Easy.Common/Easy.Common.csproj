@@ -250,6 +250,7 @@
     <Compile Include="Ext\DictionaryExt.cs" />
     <Compile Include="Ext\HttpExt.cs" />
     <Compile Include="Ext\HttpRequestBaseExt.cs" />
+    <Compile Include="Ext\ObjectExt.cs" />
     <Compile Include="Helpers\AesGcmHelper.cs" />
     <Compile Include="Helpers\BankCardHelper.cs" />
     <Compile Include="Helpers\BitmapHelper.cs" />
