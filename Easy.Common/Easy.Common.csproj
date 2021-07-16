@@ -264,6 +264,7 @@
     <Compile Include="Helpers\RandomHelper.cs" />
     <Compile Include="Helpers\TableIdHelper.cs" />
     <Compile Include="Helpers\UserAgentHelper.cs" />
+    <Compile Include="Helpers\WeightHelpers.cs" />
     <Compile Include="IoC\Autofac\AutofacRegistrar.cs" />
     <Compile Include="IoC\Autofac\ContainerBuilderExt.cs" />
     <Compile Include="IoC\Autofac\EasyAutofac.cs" />
